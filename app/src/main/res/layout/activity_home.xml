@@ -31,9 +31,26 @@
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationBar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.42" />
+        app:layout_constraintVertical_bias="0.024" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_home_posts"
+        android:layout_width="match_parent"
+        android:layout_height="616dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_test"
+
+
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:context=".HomeActivity"
+        />
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,7 +15,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.app.AlertDialog;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -26,6 +32,9 @@ public class HomeActivity extends AppCompatActivity {
 
     //initialise fields
     private TextView test_textview;
+    private RecyclerView mRecyclerView;
+    //private HomeAdapter mAdapter;
+    private HomeAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +83,31 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+/*        //initialise recyclerview
+        mRecyclerView = findViewById(R.id.rv_home_posts);
+        mRecyclerView.setHasFixedSize(true);
+        HomeAdapter.RecyclerViewClickListener listener = new HomeAdapter.RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, String id) {
+
+            }
+        };
+
+        mAdapter = new HomeAdapter(new ArrayList<Post>(), listener);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));*/
+
+        //create recycler view
+        mRecyclerView = findViewById(R.id.rv_home_posts);
+        mRecyclerView.setHasFixedSize(true);
+        HomeAdapter.RecyclerViewClickListener listener = new HomeAdapter.RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, String id) {
+            }
+        };
+        //pull movies from movie adapter to display in main activity
+        mAdapter = new HomeAdapter(Post.getPosts(), listener);
+        mRecyclerView.setAdapter(mAdapter);
 
 
     }
