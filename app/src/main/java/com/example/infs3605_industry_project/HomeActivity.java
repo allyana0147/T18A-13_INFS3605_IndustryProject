@@ -70,7 +70,7 @@ public class HomeActivity extends AppCompatActivity {
                         return true;
                     case R.id.upload:
                         startActivity(new Intent(getApplicationContext(),
-                                UploadActivity.class));
+                                NewPostActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.dictionary:

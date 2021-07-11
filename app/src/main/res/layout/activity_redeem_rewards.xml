@@ -152,7 +152,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginBottom="8dp"
-        android:tint="#305049"
+        app:tint="#305049"
         app:layout_constraintBottom_toTopOf="@+id/imageView25"
         app:layout_constraintStart_toStartOf="@+id/imageView25"
         app:srcCompat="@android:drawable/ic_menu_help" />
@@ -162,7 +162,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginBottom="8dp"
-        android:tint="#305049"
+        app:tint="#305049"
         app:layout_constraintBottom_toTopOf="@+id/imageView23"
         app:layout_constraintStart_toStartOf="@+id/imageView23"
         app:srcCompat="@android:drawable/ic_lock_lock" />
@@ -174,7 +174,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginBottom="16dp"
-        android:tint="#305049"
+        app:tint="#305049"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@android:drawable/ic_lock_power_off" />

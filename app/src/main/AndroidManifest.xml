@@ -12,6 +12,7 @@
         <activity android:name=".UploadActivity" />
         <activity android:name=".DictionaryActivity" />
         <activity android:name=".ProfileActivity" />
+        <activity android:name=".NewPostActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".MainActivity">
