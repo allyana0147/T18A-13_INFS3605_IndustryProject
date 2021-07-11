@@ -1,6 +1,7 @@
 package com.example.infs3605_industry_project;
 
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,16 +12,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
 
     //array list of all movies
-    private ArrayList<Post> mPosts;
+    private List<Post> mPosts;
+    private Context mContext;
+    DataSnapshot dataSnapshot;
     private HomeAdapter.RecyclerViewClickListener mListener;
 
-    public HomeAdapter(ArrayList<Post> posts, HomeAdapter.RecyclerViewClickListener listener) {
+    public HomeAdapter(Context context, List<Post> posts, HomeAdapter.RecyclerViewClickListener listener) {
+        mContext= context;
         mPosts = posts;
         mListener = listener;
     }
@@ -40,12 +49,14 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
     //gets movie information from movie object and displays in containers in holders in recycler view
     @Override
     public void onBindViewHolder(@NonNull HomeAdapter.HomeViewHolder holder, int position) {
-        Resources res = holder.itemView.getContext().getResources();
         Post post = mPosts.get(position);
-        holder.tvUserName.setText(post.getUser_name());
-        holder.tvLocation.setText(String.valueOf(post.getLocation()));
-        holder.tvCaption.setText(String.valueOf(post.getCaption()));
-        holder.ivPost.setImageResource(res.getIdentifier("photo", "drawable", "com.example.infs3605_industry_project"));
+        holder.tvUserName.setText(post.getName());
+        holder.tvLocation.setText(post.getLocation());
+
+        holder.tvCaption.setText(post.getCaption());
+        //retrieve image URL from firebase and add to imageviewer
+        Glide.with(mContext).load(mPosts.get(position).getImageUrl()).into(holder.ivPost);
+
         holder.itemView.setTag(post.getPost_id());
 
     }
@@ -79,6 +90,5 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
         }
 
     }
-
 
 }

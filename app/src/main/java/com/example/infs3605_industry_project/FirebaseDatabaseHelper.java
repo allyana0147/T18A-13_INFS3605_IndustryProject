@@ -56,6 +56,31 @@ public class FirebaseDatabaseHelper {
         });
     }
 
+    //POST
+    //handling asynchronous data
+    public interface MyCallbackPost {
+        void onCallback(List<Post> postList);
+    }
 
+    public void readPost(MyCallbackPost myCallback) {
+        mReferencePosts.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                posts.clear();
+                List<String> keys = new ArrayList<>();
+                for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
+                    keys.add(keyNode.getKey());
+                    Post post = keyNode.getValue(Post.class);
+                    posts.add(post);
+                }
+                myCallback.onCallback(posts);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 
 }

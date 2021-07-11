@@ -13,7 +13,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -26,6 +28,8 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.List;
+
 public class UploadActivity extends AppCompatActivity {
 
     public static final String INTENT_IMAGE_URI = "SAMPLE";
@@ -37,6 +41,7 @@ public class UploadActivity extends AppCompatActivity {
     //initialise variables
     private Button btPost;
     private ImageView ivImage;
+    private EditText tvCaption;
     public Uri imageUri;
 
 
@@ -60,48 +65,30 @@ public class UploadActivity extends AppCompatActivity {
         imageUri = intent.getParcelableExtra("imageUri");
 
         //initialise variables
-        ivImage = findViewById(R.id.iv_upload_image);
         btPost = findViewById(R.id.bt_upload_post);
+        tvCaption = findViewById(R.id.tv_upload_caption);
+
+        ivImage = findViewById(R.id.iv_upload_image);
         ivImage.setImageURI(imageUri);
-
-/*        ivCamera.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                //choosePicture();
-
-                Intent galleryIntent = new Intent();
-                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-                galleryIntent.setType("image/*");
-                startActivityForResult(galleryIntent, 2);
-
-            }
-        });*/
 
         btPost.setOnClickListener (new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 if (imageUri != null){
-                    uploadToFirebase(imageUri, sp_email);
+                    uploadToFirebase(imageUri, sp_email, tvCaption.getText().toString());
 
+                }else if (tvCaption.getText().toString().isEmpty()){
+                    tvCaption.setError("Cannot add an empty note!");
+                    tvCaption.requestFocus();
+                    return;
                 }else{
-                    Toast.makeText(UploadActivity.this, "Please Select Image", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Something went wrong! Please close the app and start again.", Toast.LENGTH_LONG).show();
                 }
-
             }
         });
     }
 
-/*        @Override
-        protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
-            if (requestCode == 2 && resultCode == RESULT_OK && data != null && data.getData() != null) {
-                imageUri = data.getData();
-                //ivPost.setImageURI(imageUri);
-            }
-
-        }*/
-
-    public void uploadToFirebase(Uri uri, String user_name){
+    public void uploadToFirebase(Uri uri, String user_name, String caption){
 
         final ProgressDialog pd = new ProgressDialog(this);
         pd.setTitle("Uploading Image...");
@@ -115,12 +102,23 @@ public class UploadActivity extends AppCompatActivity {
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Model model = new Model(uri.toString(), user_name);
                         String modelId = root.push().getKey();
-                        root.child(modelId).setValue(model);
+                        //Create new post
+
+                        new FirebaseDatabaseHelper().readUser(new FirebaseDatabaseHelper.MyCallbackUser() {
+                              @Override
+                              public void onCallback(List<User> userList) {
+                                  User user = User.getUser(user_name, userList);
+
+                                  Post post = new Post(modelId,uri.toString(), user_name, user.getName(), user.getLocation(), caption);
+                                  root.child(modelId).setValue(post);
+
+                              }
+                          });
 
                         pd.dismiss();
                         Snackbar.make(findViewById(android.R.id.content), "Image Uploaded", Snackbar.LENGTH_LONG).show();
+                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                     }
                 });
 

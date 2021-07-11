@@ -4,28 +4,28 @@ import java.util.ArrayList;
 
 public class Post {
 
-    public String post_id, user_name, post, location, caption;
+    public String post_id, imageUrl, user_name, name, location, caption;
 
     public Post(){
 
     }
 
-    public Post(String post_id, String user_name, String post, String location, String caption){
+    public Post(String post_id, String imageUrl, String user_name, String name, String location, String caption){
         this.post_id = post_id;
+        this.imageUrl = imageUrl;
         this.user_name = user_name;
-        this.post = post;
+        this.name = name;
         this.location = location;
         this.caption = caption;
 
-
     }
 
-    public String getLocation() {
-        return location;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getCaption() {
@@ -52,33 +52,21 @@ public class Post {
         this.user_name = user_name;
     }
 
-    public String getPost() {
-        return post;
+    public String getName() {
+        return name;
     }
 
-    public void setPost(String post) {
-        this.post = post;
+    public void setName(String name) {
+        this.name = name;
     }
 
-
-    //creates top 10 movies objects stored in array list called 'movies'
-    public static ArrayList<Post> getPosts() {
-        ArrayList<Post> posts = new ArrayList<>();
-        posts.add(new Post("post1", "John Smith", "SAMPLE POST", "Community", "This is the sun in our community"));
-        posts.add(new Post("post2", "Helen Jones", "SAMPLE POST", "Community", "This is the sky in our community"));
-        posts.add(new Post("post3", "Abigail Breslin", "SAMPLE POST", "Community", "This is the water in our community"));
-        return posts;
+    public String getLocation() {
+        return location;
     }
 
-    //returns a movie based on id
-    public static Post getPosts(String id) {
-        ArrayList<Post> posts = Post.getPosts();
-        for(final Post post : posts) {
-            if (post.getPost_id().equals(id)) {
-                return post;
-            }
-        }
-        return null;
+    public void setLocation(String location) {
+        this.location = location;
     }
+
 
 }
