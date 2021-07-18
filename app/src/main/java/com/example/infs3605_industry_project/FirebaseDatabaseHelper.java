@@ -18,14 +18,17 @@ public class FirebaseDatabaseHelper {
 
     private DatabaseReference mReferenceUsers;
     private DatabaseReference mReferencePosts;
+    private DatabaseReference mReferenceComments;
 
     private List<User> users = new ArrayList<>();
     private List<Post> posts = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
 
     public FirebaseDatabaseHelper() {
         mDatabase = FirebaseDatabase.getInstance();
         mReferenceUsers = mDatabase.getReference("User");
         mReferencePosts = mDatabase.getReference("Post");
+        mReferenceComments = mDatabase.getReference("Comment");
 
     }
 
@@ -82,5 +85,67 @@ public class FirebaseDatabaseHelper {
             }
         });
     }
+
+
+    //COMMENTS
+    public interface MyCallbackComment {
+        void onCallback(List<Comment> commentList);
+    }
+
+    //list comments
+    public void readComments(MyCallbackComment myCallback) {
+        mReferenceComments.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                comments.clear();
+                List<String> keys = new ArrayList<>();
+                for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
+                    keys.add(keyNode.getKey());
+                    Comment comment = keyNode.getValue(Comment.class);
+                    comments.add(comment);
+                }
+                myCallback.onCallback(comments);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    //add comment
+    public void addComment(String comment_id, Comment comment) {
+        mReferenceComments.child(comment_id).setValue(comment)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+
+                });
+    }
+
+
+    //update comment
+    public void updateComment(String comment_id, String new_comment) {
+        mReferenceComments.child(comment_id).child("comment").setValue(new_comment)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                });
+    }
+
+
+    //delete comment
+    public void deleteComment(String comment_id) {
+        mReferenceComments.child(comment_id).setValue(null)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                });
+    }
+
 
 }

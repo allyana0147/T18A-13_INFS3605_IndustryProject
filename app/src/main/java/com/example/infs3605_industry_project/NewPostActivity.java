@@ -37,7 +37,7 @@ public class NewPostActivity extends AppCompatActivity {
 
     //initialise variables
     private ImageView ivAudio, ivCamera, ivPhoto, ivVideo;
-    public Uri imageUri;
+    public Uri imageUri, videoUri;
 
     // Create a Cloud Storage reference from the app
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
@@ -54,19 +54,33 @@ public class NewPostActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(SP_EMAIL, MODE_PRIVATE);
         String sp_email = sharedPreferences.getString(SP_EMAIL, null);
 
-        ivAudio = findViewById(R.id.iv_new_post_camera);
+        ivAudio = findViewById(R.id.iv_new_post_audio);
         ivCamera = findViewById(R.id.iv_new_post_camera);
-        ivPhoto = findViewById(R.id.iv_new_post_camera);
-        ivVideo = findViewById(R.id.iv_new_post_camera);
+        ivPhoto = findViewById(R.id.iv_new_post_photo);
+        ivVideo = findViewById(R.id.iv_new_post_video);
 
+
+        //choose photo
         ivPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //choosePicture();
 
                 Intent galleryIntent = new Intent();
                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
                 galleryIntent.setType("image/*");
+                startActivityForResult(galleryIntent, 1);
+
+            }
+        });
+
+        //choose video
+        ivVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent galleryIntent = new Intent();
+                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                galleryIntent.setType("video/*");
                 startActivityForResult(galleryIntent, 2);
 
             }
@@ -77,12 +91,20 @@ public class NewPostActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult ( int requestCode, int resultCode, @Nullable Intent data){
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 2 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
-            //ivPost.setImageURI(imageUri);
 
             Intent intent = new Intent(this, UploadActivity.class);
             intent.putExtra("imageUri", imageUri);
+            startActivity(intent);
+
+        }
+
+        if (requestCode == 2 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            videoUri = data.getData();
+
+            Intent intent = new Intent(this, UploadActivityVideo.class);
+            intent.putExtra("videoUri", videoUri);
             startActivity(intent);
 
         }

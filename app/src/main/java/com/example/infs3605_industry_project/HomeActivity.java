@@ -49,8 +49,6 @@ public class HomeActivity extends AppCompatActivity {
         String sp_email = sharedPreferences.getString(SP_EMAIL, null);
 
         //initialise fields
-        test_textview = findViewById(R.id.tv_test);
-        test_textview.setText(sp_email);
 
         //refer to https://www.youtube.com/watch?v=JjfSjMs0ImQ
         //initialise and assign variable to bottom navigation bar
@@ -89,11 +87,6 @@ public class HomeActivity extends AppCompatActivity {
         //create recycler view
         mRecyclerView = findViewById(R.id.rv_home_posts);
         mRecyclerView.setHasFixedSize(true);
-        HomeAdapter.RecyclerViewClickListener listener = new HomeAdapter.RecyclerViewClickListener() {
-            @Override
-            public void onClick(View view, String id) {
-            }
-        };
 
         new FirebaseDatabaseHelper().readPost(new FirebaseDatabaseHelper.MyCallbackPost() {
             @Override
@@ -103,6 +96,13 @@ public class HomeActivity extends AppCompatActivity {
                 HomeAdapter.RecyclerViewClickListener listener = new HomeAdapter.RecyclerViewClickListener() {
                     @Override
                     public void onClick(View view, String id) {
+
+                    }
+
+                    @Override
+                    public void onAddCommentClick(int position) {
+                        startActivity(new Intent(getApplicationContext(),
+                                CommentsActivity.class));
 
                     }
 

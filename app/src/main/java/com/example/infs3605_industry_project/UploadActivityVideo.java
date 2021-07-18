@@ -14,7 +14,7 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -31,7 +31,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.List;
 
-public class UploadActivity extends AppCompatActivity {
+public class UploadActivityVideo extends AppCompatActivity {
 
     //shared preference to save and share user email to each pages
     SharedPreferences sharedPreferences;
@@ -39,9 +39,10 @@ public class UploadActivity extends AppCompatActivity {
 
     //initialise variables
     private Button btPost;
-    private ImageView ivImage;
     private EditText tvCaption;
-    public Uri imageUri;
+    private VideoView vvVideo;
+    public Uri videoUri;
+    MediaController mediaController;
 
 
     // Create a Cloud Storage reference from the app
@@ -53,30 +54,33 @@ public class UploadActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_upload);
-
+        setContentView(R.layout.activity_upload_video);
         //shared preference to save and share user email to each pages
         sharedPreferences = getSharedPreferences(SP_EMAIL, MODE_PRIVATE);
         String sp_email = sharedPreferences.getString(SP_EMAIL, null);
 
-        //get Image URI Intent
+        //get Video URI Intent
         Intent intent = getIntent();
-        imageUri = intent.getParcelableExtra("imageUri");
+        videoUri = intent.getParcelableExtra("videoUri");
 
         //initialise variables
-        btPost = findViewById(R.id.bt_upload_post);
-        tvCaption = findViewById(R.id.tv_upload_caption);
+        btPost = findViewById(R.id.bt_upload_video_post);
+        tvCaption = findViewById(R.id.tv_upload_video_caption);
 
-        ivImage = findViewById(R.id.iv_upload_image);
-        ivImage.setImageURI(imageUri);
+        vvVideo = findViewById(R.id.vv_upload_video);
+        vvVideo.setVideoURI(videoUri);
+        mediaController = new MediaController(this);
+        vvVideo.setMediaController(mediaController);
+        mediaController.setAnchorView(vvVideo);
+        vvVideo.start();
 
         btPost.setOnClickListener (new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if (imageUri != null){
-                    uploadToFirebase(imageUri, sp_email, tvCaption.getText().toString());
+                if (videoUri != null){
+                    uploadToFirebase(videoUri, sp_email, tvCaption.getText().toString());
 
-                }else if (tvCaption.getText().toString().isEmpty()){
+                } else if (tvCaption.getText().toString().isEmpty()){
                     tvCaption.setError("Cannot add an empty note!");
                     tvCaption.requestFocus();
                     return;
@@ -105,15 +109,15 @@ public class UploadActivity extends AppCompatActivity {
                         //Create new post
 
                         new FirebaseDatabaseHelper().readUser(new FirebaseDatabaseHelper.MyCallbackUser() {
-                              @Override
-                              public void onCallback(List<User> userList) {
-                                  User user = User.getUser(user_name, userList);
+                            @Override
+                            public void onCallback(List<User> userList) {
+                                User user = User.getUser(user_name, userList);
 
-                                  Post post = new Post(modelId,uri.toString(), user_name, user.getName(), user.getLocation(), caption, "image");
-                                  root.child(modelId).setValue(post);
+                                Post post = new Post(modelId,uri.toString(), user_name, user.getName(), user.getLocation(), caption, "video");
+                                root.child(modelId).setValue(post);
 
-                              }
-                          });
+                            }
+                        });
 
                         pd.dismiss();
                         Snackbar.make(findViewById(android.R.id.content), "Post Uploaded", Snackbar.LENGTH_LONG).show();

@@ -2,21 +2,20 @@ package com.example.infs3605_industry_project;
 
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
-import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,6 +25,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
     private List<Post> mPosts;
     private Context mContext;
     DataSnapshot dataSnapshot;
+    View mView;
     private HomeAdapter.RecyclerViewClickListener mListener;
 
     public HomeAdapter(Context context, List<Post> posts, HomeAdapter.RecyclerViewClickListener listener) {
@@ -36,6 +36,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
 
     public interface RecyclerViewClickListener {
         void onClick(View view, String id);
+        void onAddCommentClick(int position);
     }
 
     //displays movies in rows in a recycler view
@@ -69,7 +70,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
     public class HomeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView tvUserName, tvLocation, tvCaption;
         private ImageView ivProfile, ivPost, ivFollow, ivLike, ivComment, ivFlag;
-
         private HomeAdapter.RecyclerViewClickListener listener;
 
 
@@ -80,7 +80,23 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
             tvUserName = itemView.findViewById(R.id.tv_post_username);
             tvLocation = itemView.findViewById(R.id.tv_post_location);
             tvCaption = itemView.findViewById(R.id.tv_post_caption);
-            ivPost = itemView.findViewById(R.id.iv_post_content);
+            ivPost = itemView.findViewById(R.id.iv_post_image);
+
+            ivComment = itemView.findViewById(R.id.iv_post_comment);
+
+            //setting on click for delete button to delete notes
+            ivComment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onAddCommentClick(position);
+                        }
+                    }
+                }
+            });
+
 
         }
 
