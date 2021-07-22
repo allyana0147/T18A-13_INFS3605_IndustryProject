@@ -150,6 +150,24 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         if(task.isSuccessful()){
                             User user = new User (email, password, name, user_type, location, language);
 
+                            //Add empty profile for new users
+                            //get unique id for profile
+                            String profileID = UUID.randomUUID().toString().replace("-", "");
+                            //create new experience object
+                            Profile profile = new Profile ();
+                            profile.setProfile_id(profileID);
+                            profile.setUser_id(email);
+                            profile.setUser_name(name);
+                            profile.setLocation(location);
+                            profile.setNo_of_posts("0");
+                            profile.setNo_of_followers("0");
+                            profile.setTotal_points("0");
+                            profile.setNo_of_points("0");
+                            profile.setNo_rewards_redeemed("0");
+
+                            //add new experience object to database
+                            new FirebaseDatabaseHelper().addNewProfile(profileID, profile);
+
 
                             //add user into Firebase
                             FirebaseDatabase.getInstance().getReference("User")
@@ -175,9 +193,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         }else{
                             Toast.makeText(SignUpActivity.this, "Failed to register!", Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
-
-
                         }
+
                     }
                 });
     }

@@ -19,16 +19,19 @@ public class FirebaseDatabaseHelper {
     private DatabaseReference mReferenceUsers;
     private DatabaseReference mReferencePosts;
     private DatabaseReference mReferenceComments;
+    private DatabaseReference mReferenceProfile;
 
     private List<User> users = new ArrayList<>();
     private List<Post> posts = new ArrayList<>();
     private List<Comment> comments = new ArrayList<>();
+    private List<Profile> profiles = new ArrayList<>();
 
     public FirebaseDatabaseHelper() {
         mDatabase = FirebaseDatabase.getInstance();
         mReferenceUsers = mDatabase.getReference("User");
         mReferencePosts = mDatabase.getReference("Post");
         mReferenceComments = mDatabase.getReference("Comment");
+        mReferenceProfile = mDatabase.getReference("Profile");
 
     }
 
@@ -88,6 +91,7 @@ public class FirebaseDatabaseHelper {
 
 
     //COMMENTS
+    //handling asynchronous data
     public interface MyCallbackComment {
         void onCallback(List<Comment> commentList);
     }
@@ -141,6 +145,57 @@ public class FirebaseDatabaseHelper {
     public void deleteComment(String comment_id) {
         mReferenceComments.child(comment_id).setValue(null)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                });
+    }
+
+
+    //PROFILE
+    //add profile
+    public void addNewProfile(String id, Profile profile) {
+        mReferenceProfile.child(id).setValue(profile)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+
+                });
+    }
+
+    //handling asynchronous data
+    public interface MyCallbackProfile {
+        void onCallback(List<Profile> profileList);
+    }
+
+    //list profile
+    public void readProfile(MyCallbackProfile myCallback) {
+        mReferenceProfile.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                profiles.clear();
+                List<String> keys = new ArrayList<>();
+                for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
+                    keys.add(keyNode.getKey());
+                    Profile profile = keyNode.getValue(Profile.class);
+                    profiles.add(profile);
+                }
+                myCallback.onCallback(profiles);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    //update number of posts
+    public void updateNumberOfPosts(String id, String new_no_posts) {
+        mReferenceProfile.child(id).child("no_of_posts").setValue(new_no_posts)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+
                     @Override
                     public void onSuccess(Void aVoid) {
                     }

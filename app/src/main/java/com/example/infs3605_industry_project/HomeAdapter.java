@@ -36,7 +36,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
 
     public interface RecyclerViewClickListener {
         void onClick(View view, String id);
-        void onAddCommentClick(int position);
+        void onAddCommentClick(View view, int position);
     }
 
     //displays movies in rows in a recycler view
@@ -91,7 +91,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
                     if (listener != null) {
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
-                            listener.onAddCommentClick(position);
+                            listener.onAddCommentClick(v, position);
                         }
                     }
                 }

@@ -80,6 +80,19 @@ public class UploadActivityVideo extends AppCompatActivity {
                 if (videoUri != null){
                     uploadToFirebase(videoUri, sp_email, tvCaption.getText().toString());
 
+                    //update number of posts in profile
+                    new FirebaseDatabaseHelper().readProfile(new FirebaseDatabaseHelper.MyCallbackProfile() {
+                        @Override
+                        public void onCallback(List<Profile> profileList) {
+
+                            Profile profile = Profile.getProfile(sp_email, profileList);
+                            int new_no_post = Integer.parseInt(profile.getNo_of_posts()) + 1;
+                            new FirebaseDatabaseHelper().updateNumberOfPosts(profile.getProfile_id(), String.valueOf(new_no_post));
+
+                        }
+
+                    });
+
                 } else if (tvCaption.getText().toString().isEmpty()){
                     tvCaption.setError("Cannot add an empty note!");
                     tvCaption.requestFocus();

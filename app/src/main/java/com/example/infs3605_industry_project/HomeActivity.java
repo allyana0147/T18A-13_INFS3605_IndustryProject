@@ -100,10 +100,16 @@ public class HomeActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onAddCommentClick(int position) {
-                        startActivity(new Intent(getApplicationContext(),
-                                CommentsActivity.class));
+                    public void onAddCommentClick(View view, int position) {
+                        Post post = postList.get(position);
+                        String post_id = post.getPost_id();
 
+                        Intent intent = new Intent(view.getContext(), CommentsActivity.class);
+                        intent.putExtra(CommentsActivity.POST_CAPTION, post.getCaption());
+                        intent.putExtra(CommentsActivity.POST_USER_NAME, post.getName());
+                        intent.putExtra(CommentsActivity.POST_ID, post.getPost_id());
+                        intent.putExtra(CommentsActivity.POST_LOCATION, post.getLocation());
+                        startActivity(intent);
                     }
 
                 };
@@ -116,10 +122,6 @@ public class HomeActivity extends AppCompatActivity {
 
         });
 
-
-/*        //pull movies from movie adapter to display in main activity
-        mAdapter = new HomeAdapter(Post.getPosts(), listener);
-        mRecyclerView.setAdapter(mAdapter);*/
 
 
     }
