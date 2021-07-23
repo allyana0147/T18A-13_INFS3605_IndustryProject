@@ -86,9 +86,14 @@ public class UploadActivityVideo extends AppCompatActivity {
                         public void onCallback(List<Profile> profileList) {
 
                             Profile profile = Profile.getProfile(sp_email, profileList);
+
+                            //update number of posts
                             int new_no_post = Integer.parseInt(profile.getNo_of_posts()) + 1;
                             new FirebaseDatabaseHelper().updateNumberOfPosts(profile.getProfile_id(), String.valueOf(new_no_post));
 
+                            //update no.of total points
+                            int new_total_points = Integer.parseInt(profile.getTotal_points()) + 50;
+                            new FirebaseDatabaseHelper().updateTotalPoints(profile.getProfile_id(), String.valueOf(new_total_points));
                         }
 
                     });

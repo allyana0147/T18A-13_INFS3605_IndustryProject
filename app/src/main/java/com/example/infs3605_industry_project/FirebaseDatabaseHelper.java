@@ -202,5 +202,37 @@ public class FirebaseDatabaseHelper {
                 });
     }
 
+    //update number of followers
+    public void updateNumberOfFollowers(String id, String new_no_followers) {
+        mReferenceProfile.child(id).child("no_of_followers").setValue(new_no_followers)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                });
+    }
+
+    //update total points
+    public void updateTotalPoints(String id, String total_points) {
+        mReferenceProfile.child(id).child("total_points").setValue(total_points)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                });
+    }
+
+    //update current number points
+    public void updateCurrentPoints(String id, String current_points) {
+        mReferenceProfile.child(id).child("no_of_points").setValue(current_points)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                });
+    }
 
 }

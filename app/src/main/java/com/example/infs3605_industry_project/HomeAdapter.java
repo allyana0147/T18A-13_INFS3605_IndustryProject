@@ -37,6 +37,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
     public interface RecyclerViewClickListener {
         void onClick(View view, String id);
         void onAddCommentClick(View view, int position);
+        void onAddFollowClick(View view, int position);
     }
 
     //displays movies in rows in a recycler view
@@ -83,8 +84,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
             ivPost = itemView.findViewById(R.id.iv_post_image);
 
             ivComment = itemView.findViewById(R.id.iv_post_comment);
+            ivFollow  = itemView.findViewById(R.id.iv_post_follow);
+            ivLike  = itemView.findViewById(R.id.iv_post_like);
+            ivFlag  = itemView.findViewById(R.id.iv_post_flag);
 
-            //setting on click for delete button to delete notes
+
+            //comment button
             ivComment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -92,6 +97,19 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
                             listener.onAddCommentClick(v, position);
+                        }
+                    }
+                }
+            });
+
+            //follow button
+            ivFollow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onAddFollowClick(v, position);
                         }
                     }
                 }

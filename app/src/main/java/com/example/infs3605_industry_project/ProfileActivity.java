@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -20,7 +21,7 @@ public class ProfileActivity extends AppCompatActivity {
     private static final String SP_EMAIL = "mypref";
 
     //initialise variables
-    private TextView tvName, tvLocation, tvNoPost, tvNoFollowers, tvTotalPoints, tvCurrentPoints, tvRewardsRedeemed;
+    private TextView tvName, tvLocation, tvNoPost, tvNoFollowers, tvTotalPoints, tvCurrentPoints, tvRewardsRedeemed, tvTextRedeem;
     private ImageView btEdit, btPrivacy, btHelp, btLogout;
     private Button btRedeemRewards, btViewRewards;
     private ProgressBar pbRewards;
@@ -41,6 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
         tvTotalPoints = findViewById(R.id.tv_profile_total_points);
         tvCurrentPoints = findViewById(R.id.tv_profile_no_points);
         tvRewardsRedeemed = findViewById(R.id.tv_profile_no_rewards_redeemed);
+        tvTextRedeem = findViewById(R.id.tv_profile_redeem);
 
         btEdit = findViewById(R.id.bt_profile_edit);
         btPrivacy = findViewById(R.id.bt_profile_privacy);
@@ -61,7 +63,15 @@ public class ProfileActivity extends AppCompatActivity {
                 tvNoPost.setText(profile.getNo_of_posts());
                 tvNoFollowers.setText(profile.getNo_of_followers());
                 tvTotalPoints.setText(profile.getTotal_points());
-                tvCurrentPoints.setText(profile.getNo_of_points());
+
+                int points_needed_to_redeem_rewards = 250 - Integer.parseInt(profile.getNo_of_points());
+                tvCurrentPoints.setText(String.valueOf(points_needed_to_redeem_rewards));
+
+                if(points_needed_to_redeem_rewards == 0){
+                    btRedeemRewards.setVisibility(View.VISIBLE);
+                    tvTextRedeem.setVisibility(View.INVISIBLE);
+                }
+
                 tvRewardsRedeemed.setText(profile.getNo_rewards_redeemed());
 
                 }
