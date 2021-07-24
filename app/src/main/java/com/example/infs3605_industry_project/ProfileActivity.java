@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
+import android.widget.ProgressBar;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +68,8 @@ public class ProfileActivity extends AppCompatActivity {
 
                 int points_needed_to_redeem_rewards = 250 - Integer.parseInt(profile.getNo_of_points());
                 tvCurrentPoints.setText(String.valueOf(points_needed_to_redeem_rewards));
+                int progress_rewards = ((Integer.parseInt(profile.getNo_of_points()))*100)/250;
+                pbRewards.setProgress(progress_rewards);
 
                 if(points_needed_to_redeem_rewards == 0){
                     btRedeemRewards.setVisibility(View.VISIBLE);
