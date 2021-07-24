@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.INFS3605IndustryProject">
-        <activity android:name=".CommentsActivity"></activity>
+        <activity android:name=".ViewRewardsActivity"></activity>
+        <activity android:name=".RedeemRewardsActivity" />
+        <activity android:name=".CommentsActivity" />
         <activity android:name=".UploadActivityVideo" />
         <activity android:name=".UploadActivity" />
         <activity android:name=".DictionaryActivity" />

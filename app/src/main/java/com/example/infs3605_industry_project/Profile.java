@@ -103,5 +103,14 @@ public class Profile {
         return null;
     }
 
+    public static String getProfileIdBasedOnUser(String user_id, List<Profile> profileList) {
+        for(final Profile profile : profileList) {
+            if (profile.getUser_id().equals(user_id)) {
+                return profile.getProfile_id();
+            }
+        }
+        return null;
+    }
+
 
 }

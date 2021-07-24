@@ -2,6 +2,7 @@ package com.example.infs3605_industry_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -72,13 +74,38 @@ public class ProfileActivity extends AppCompatActivity {
                     tvTextRedeem.setVisibility(View.INVISIBLE);
                 }
 
-                tvRewardsRedeemed.setText(profile.getNo_rewards_redeemed());
-
                 }
 
         });
 
-    }
+        new FirebaseDatabaseHelper().readRewards(new FirebaseDatabaseHelper.MyCallbackReward() {
+            @Override
+            public void onCallback(List<Reward> rewardList) {
+                List<Reward> rewardListBasedOnUser = new ArrayList<>();
+                rewardListBasedOnUser = Reward.getRewardBasedOnUser(sp_email, rewardList);
 
+                tvRewardsRedeemed.setText(String.valueOf(rewardListBasedOnUser.size()));
+
+            }
+
+        });
+
+
+        btRedeemRewards.setOnClickListener (new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProfileActivity.this, RedeemRewardsActivity.class));
+
+            }
+        });
+
+        btViewRewards.setOnClickListener (new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProfileActivity.this, ViewRewardsActivity.class));
+
+            }
+        });
+    }
 
 }

@@ -20,11 +20,13 @@ public class FirebaseDatabaseHelper {
     private DatabaseReference mReferencePosts;
     private DatabaseReference mReferenceComments;
     private DatabaseReference mReferenceProfile;
+    private DatabaseReference mReferenceReward;
 
     private List<User> users = new ArrayList<>();
     private List<Post> posts = new ArrayList<>();
     private List<Comment> comments = new ArrayList<>();
     private List<Profile> profiles = new ArrayList<>();
+    private List<Reward> rewards = new ArrayList<>();
 
     public FirebaseDatabaseHelper() {
         mDatabase = FirebaseDatabase.getInstance();
@@ -32,6 +34,7 @@ public class FirebaseDatabaseHelper {
         mReferencePosts = mDatabase.getReference("Post");
         mReferenceComments = mDatabase.getReference("Comment");
         mReferenceProfile = mDatabase.getReference("Profile");
+        mReferenceReward = mDatabase.getReference("Reward");
 
     }
 
@@ -234,5 +237,57 @@ public class FirebaseDatabaseHelper {
                     }
                 });
     }
+
+    //update no.of rewards
+    public void updateNumberRewards(String id, String no_of_rewards_redeemed) {
+        mReferenceProfile.child(id).child("no_rewards_redeemed").setValue(no_of_rewards_redeemed)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                });
+    }
+
+
+    //REWARDS
+    //handling asynchronous data
+    public interface MyCallbackReward{
+        void onCallback(List<Reward> rewardList);
+    }
+
+    //list rewards
+    public void readRewards(MyCallbackReward myCallback) {
+        mReferenceReward.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                rewards.clear();
+                List<String> keys = new ArrayList<>();
+                for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
+                    keys.add(keyNode.getKey());
+                    Reward reward = keyNode.getValue(Reward.class);
+                    rewards.add(reward);
+                }
+                myCallback.onCallback(rewards);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    //add reward
+    public void addReward(String reward_id, Reward reward) {
+        mReferenceReward.child(reward_id).setValue(reward)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+
+                });
+    }
+
 
 }
