@@ -132,6 +132,25 @@ public class HomeActivity extends AppCompatActivity {
 
                     }
 
+                    @Override
+                    public void onAddUnFollowClick(View view, int position) {
+                        Post post = postList.get(position);
+                        String post_id = post.getPost_id();
+
+                        //update number of followers in profile
+                        new FirebaseDatabaseHelper().readProfile(new FirebaseDatabaseHelper.MyCallbackProfile() {
+                            @Override
+                            public void onCallback(List<Profile> profileList) {
+
+                                Profile profile = Profile.getProfile(sp_email, profileList);
+                                int new_no_followers = Integer.parseInt(profile.getNo_of_followers()) - 1;
+                                new FirebaseDatabaseHelper().updateNumberOfFollowers(profile.getProfile_id(), String.valueOf(new_no_followers));
+
+                            }
+
+                        });
+                    }
+
                 };
 
                 mAdapter = new HomeAdapter(HomeActivity.this, postList, listener);

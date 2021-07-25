@@ -38,6 +38,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
         void onClick(View view, String id);
         void onAddCommentClick(View view, int position);
         void onAddFollowClick(View view, int position);
+        void onAddUnFollowClick (View view, int position);
     }
 
     //displays movies in rows in a recycler view
@@ -70,7 +71,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
 
     public class HomeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView tvUserName, tvLocation, tvCaption;
-        private ImageView ivProfile, ivPost, ivFollow, ivLike, ivComment, ivFlag;
+        private ImageView ivProfile, ivPost, ivFollowing, ivLike, ivComment, ivFlag, ivUnLike, ivFollow;
         private HomeAdapter.RecyclerViewClickListener listener;
 
 
@@ -84,9 +85,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
             ivPost = itemView.findViewById(R.id.iv_post_image);
 
             ivComment = itemView.findViewById(R.id.iv_post_comment);
-            ivFollow  = itemView.findViewById(R.id.iv_post_follow);
-            ivLike  = itemView.findViewById(R.id.iv_post_like);
+            ivFollowing  = itemView.findViewById(R.id.iv_post_follow);
+            ivLike  = itemView.findViewById(R.id.iv_post_empty_like);
+            ivUnLike  = itemView.findViewById(R.id.iv_post_like);
             ivFlag  = itemView.findViewById(R.id.iv_post_flag);
+            ivFollow  = itemView.findViewById(R.id.iv_post_add_follow);
 
 
             //comment button
@@ -103,9 +106,25 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
             });
 
             //follow button
+            ivFollowing.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ivFollow.setVisibility(View.VISIBLE);
+                    ivFollowing.setVisibility(View.INVISIBLE);
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onAddUnFollowClick(v, position);
+                        }
+                    }
+                }
+            });
+
             ivFollow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    ivFollow.setVisibility(View.INVISIBLE);
+                    ivFollowing.setVisibility(View.VISIBLE);
                     if (listener != null) {
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
@@ -115,6 +134,22 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
                 }
             });
 
+            //like button
+            ivLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ivLike.setVisibility(View.INVISIBLE);
+                    ivUnLike.setVisibility(View.VISIBLE);
+                }
+            });
+
+            ivUnLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ivUnLike.setVisibility(View.INVISIBLE);
+                    ivLike.setVisibility(View.VISIBLE);
+                }
+            });
 
         }
 

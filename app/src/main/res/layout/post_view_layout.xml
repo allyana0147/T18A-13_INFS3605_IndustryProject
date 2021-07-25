@@ -121,7 +121,23 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_post_caption"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
+        <ImageView
+            android:id="@+id/iv_post_empty_like"
+            app:srcCompat="@drawable/empty_like"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_post_follow"
+            app:layout_constraintStart_toStartOf="@+id/iv_post_follow"
+            app:layout_constraintTop_toBottomOf="@+id/iv_post_follow"/>
 
+        <ImageView
+            android:id="@+id/iv_post_add_follow"
+            app:srcCompat="@drawable/follow"
+            tools:layout_editor_absoluteX="199dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
