@@ -22,6 +22,7 @@ public class FirebaseDatabaseHelper {
     private DatabaseReference mReferenceProfile;
     private DatabaseReference mReferenceReward;
     private DatabaseReference mReferenceLanguage;
+    private DatabaseReference mReferenceDictionary;
 
     private List<User> users = new ArrayList<>();
     private List<Post> posts = new ArrayList<>();
@@ -29,6 +30,7 @@ public class FirebaseDatabaseHelper {
     private List<Profile> profiles = new ArrayList<>();
     private List<Reward> rewards = new ArrayList<>();
     private List<Language> languages = new ArrayList<>();
+    private List<Dictionary> dictionaries = new ArrayList<>();
 
     public FirebaseDatabaseHelper() {
         mDatabase = FirebaseDatabase.getInstance();
@@ -38,6 +40,7 @@ public class FirebaseDatabaseHelper {
         mReferenceProfile = mDatabase.getReference("Profile");
         mReferenceReward = mDatabase.getReference("Reward");
         mReferenceLanguage = mDatabase.getReference("Language");
+        mReferenceDictionary = mDatabase.getReference("Dictionary");
 
     }
 
@@ -320,5 +323,32 @@ public class FirebaseDatabaseHelper {
         });
     }
 
+    //DICTIONARY
+    //handling asynchronous data
+    public interface MyCallbackDictionary{
+        void onCallback(List<Dictionary> dictionaryList);
+    }
+
+    //list dictionary
+    public void readDictionary(MyCallbackDictionary myCallback) {
+        mReferenceDictionary.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                dictionaries.clear();
+                List<String> keys = new ArrayList<>();
+                for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
+                    keys.add(keyNode.getKey());
+                    Dictionary dictionary = keyNode.getValue(Dictionary.class);
+                    dictionaries.add(dictionary);
+                }
+                myCallback.onCallback(dictionaries);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 
 }
