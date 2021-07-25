@@ -21,12 +21,14 @@ public class FirebaseDatabaseHelper {
     private DatabaseReference mReferenceComments;
     private DatabaseReference mReferenceProfile;
     private DatabaseReference mReferenceReward;
+    private DatabaseReference mReferenceLanguage;
 
     private List<User> users = new ArrayList<>();
     private List<Post> posts = new ArrayList<>();
     private List<Comment> comments = new ArrayList<>();
     private List<Profile> profiles = new ArrayList<>();
     private List<Reward> rewards = new ArrayList<>();
+    private List<Language> languages = new ArrayList<>();
 
     public FirebaseDatabaseHelper() {
         mDatabase = FirebaseDatabase.getInstance();
@@ -35,6 +37,7 @@ public class FirebaseDatabaseHelper {
         mReferenceComments = mDatabase.getReference("Comment");
         mReferenceProfile = mDatabase.getReference("Profile");
         mReferenceReward = mDatabase.getReference("Reward");
+        mReferenceLanguage = mDatabase.getReference("Language");
 
     }
 
@@ -287,6 +290,34 @@ public class FirebaseDatabaseHelper {
                     }
 
                 });
+    }
+
+    //LANGUAGE
+    //handling asynchronous data
+    public interface MyCallbackLanguage{
+        void onCallback(List<Language> languageList);
+    }
+
+    //list languages
+    public void readLanguage(MyCallbackLanguage myCallback) {
+        mReferenceLanguage.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                languages.clear();
+                List<String> keys = new ArrayList<>();
+                for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
+                    keys.add(keyNode.getKey());
+                    Language language = keyNode.getValue(Language.class);
+                    languages.add(language);
+                }
+                myCallback.onCallback(languages);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 

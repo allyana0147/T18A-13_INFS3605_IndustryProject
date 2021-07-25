@@ -8,68 +8,78 @@
 
     <EditText
         android:id="@+id/et_login_email"
-        android:layout_width="306dp"
-        android:layout_height="49dp"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="208dp"
         android:ems="10"
         android:hint="Email"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/et_login_password"
+        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.803" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/et_login_password"
-        android:layout_width="304dp"
-        android:layout_height="53dp"
-        android:layout_marginBottom="372dp"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="56dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/et_login_email"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/et_login_email" />
+        app:layout_constraintStart_toStartOf="@+id/et_login_email"
+        app:layout_constraintTop_toBottomOf="@+id/et_login_email" />
+
+    <ImageView
+        android:id="@+id/iv_upload_video_back"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?attr/homeAsUpIndicator"
+        app:tint="#305049" />
+
+    <Button
+        android:id="@+id/bt_login"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="78dp"
+        android:text="LOGIN"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/et_login_password"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/et_login_password"
+        app:layout_constraintTop_toBottomOf="@+id/et_login_password"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ProgressBar
         android:id="@+id/pb_login"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/et_login_password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_login_email"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/tv_login_signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SIGN UP"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.434"
-        tools:visibility="invisible"
-        android:color="@color/olive"/>
-
-    <Button
-        android:id="@+id/bt_login"
-        android:layout_width="94dp"
-        android:layout_height="44dp"
-        android:text="LOG IN"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.223"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pb_login"
-        app:layout_constraintVertical_bias="0.125" />
-
-    <Button
-        android:id="@+id/bt_login_signup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SIGN UP"
-        app:layout_constraintBottom_toBottomOf="@+id/bt_login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.656"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/bt_login"
-        app:layout_constraintVertical_bias="0.0" />
-
+        app:layout_constraintTop_toBottomOf="@+id/bt_login"
+        app:layout_constraintVertical_bias="0.334" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -50,4 +50,13 @@ public class Reward {
         }
         return rewardListBasedOnUser;
     }
+
+    public static String getReward(String reward_id, List<Reward> rewardList) {
+        for(final Reward reward : rewardList) {
+            if (reward.getReward_id().equals(reward_id)) {
+                return reward.getReward();
+            }
+        }
+        return null;
+    }
 }

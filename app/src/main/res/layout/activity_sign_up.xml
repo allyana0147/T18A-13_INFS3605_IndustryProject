@@ -10,51 +10,38 @@
         android:id="@+id/et_signup_password"
         android:layout_width="319dp"
         android:layout_height="44dp"
+        android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/et_signup_confirm_password"
-        app:layout_constraintEnd_toEndOf="@+id/et_signup_confirm_password"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/et_signup_confirm_password"
-        app:layout_constraintTop_toBottomOf="@+id/et_signup_email" />
-
-    <EditText
-        android:id="@+id/et_signup_confirm_password"
-        android:layout_width="319dp"
-        android:layout_height="44dp"
-        android:ems="10"
-        android:hint="Confirm Password"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/et_signup_location"
         app:layout_constraintEnd_toEndOf="@+id/et_signup_location"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/et_signup_location"
-        app:layout_constraintTop_toBottomOf="@+id/et_signup_password" />
+        app:layout_constraintTop_toBottomOf="@+id/et_signup_email" />
 
     <EditText
         android:id="@+id/et_signup_location"
         android:layout_width="319dp"
         android:layout_height="44dp"
+        android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="Location"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/et_signup_language"
         app:layout_constraintEnd_toEndOf="@+id/et_signup_language"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/et_signup_language"
-        app:layout_constraintTop_toBottomOf="@+id/et_signup_confirm_password" />
+        app:layout_constraintTop_toBottomOf="@+id/et_signup_password" />
 
     <EditText
         android:id="@+id/et_signup_language"
         android:layout_width="319dp"
         android:layout_height="44dp"
+        android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="Language"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/cb_signup_usertype"
         app:layout_constraintEnd_toEndOf="@+id/cb_signup_usertype"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/cb_signup_usertype"
         app:layout_constraintTop_toBottomOf="@+id/et_signup_location" />
 
@@ -62,10 +49,10 @@
         android:id="@+id/et_signup_email"
         android:layout_width="319dp"
         android:layout_height="44dp"
+        android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/et_signup_password"
         app:layout_constraintStart_toStartOf="@+id/et_signup_password"
         app:layout_constraintTop_toBottomOf="@+id/et_signup_name" />
 
@@ -73,11 +60,12 @@
         android:id="@+id/et_signup_name"
         android:layout_width="319dp"
         android:layout_height="44dp"
-        android:layout_marginTop="152dp"
+        android:layout_marginTop="104dp"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="@+id/et_signup_email"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/et_signup_email"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -85,25 +73,25 @@
         android:id="@+id/cb_signup_usertype"
         android:layout_width="316dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginTop="30dp"
         android:text="Are you from a First Nations background?"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.536"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_signup_language" />
 
     <Button
         android:id="@+id/bt_signup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="319dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
         android:text="Sign Up"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.447"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/cb_signup_usertype"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/cb_signup_usertype"
         app:layout_constraintTop_toBottomOf="@+id/cb_signup_usertype"
-        app:layout_constraintVertical_bias="0.466" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <ProgressBar
         android:id="@+id/pb_signup"
@@ -112,8 +100,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.462"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.453"
         tools:visibility="invisible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

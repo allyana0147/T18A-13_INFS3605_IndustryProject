@@ -30,7 +30,7 @@ import java.util.UUID;
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
     //initialise sign up fields
-    private EditText editTextName, editTextEmail, editTextPassword, editTextConfirmPassword, editTextLocation, editTextLanguage;
+    private EditText editTextName, editTextEmail, editTextPassword, editTextLocation, editTextLanguage;
     private ProgressBar progressBar;
     private CheckBox checkBoxUserType;
     private Button signup;
@@ -54,7 +54,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         editTextName = (EditText) findViewById(R.id.et_signup_name);
         editTextEmail = (EditText) findViewById(R.id.et_signup_email);
         editTextPassword = (EditText) findViewById(R.id.et_signup_password);
-        editTextConfirmPassword = (EditText) findViewById(R.id.et_signup_confirm_password);
         editTextLocation = (EditText) findViewById(R.id.et_signup_location);
         editTextLanguage = (EditText) findViewById(R.id.et_signup_language);
         progressBar = (ProgressBar) findViewById(R.id.pb_signup);
@@ -83,7 +82,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         String name = editTextName.getText().toString().trim();
         String email = editTextEmail.getText().toString().toLowerCase().trim();
         String password = editTextPassword.getText().toString().trim();
-        String confirmPassword = editTextConfirmPassword.getText().toString().trim();
         String location = editTextLocation.getText().toString().trim();
         String language = editTextLanguage.getText().toString().trim();
 
@@ -117,16 +115,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         if(password.length() < 6){
             editTextPassword.setError("Minimum password length should be 6 characters!");
             editTextPassword.requestFocus();
-            return;
-        }
-        if(confirmPassword.isEmpty()){
-            editTextConfirmPassword.setError("Confirm Password is required!");
-            editTextConfirmPassword.requestFocus();
-            return;
-        }
-        if(!confirmPassword.equals(password)){
-            editTextConfirmPassword.setError("Ensure password matches!");
-            editTextConfirmPassword.requestFocus();
             return;
         }
         if(location.isEmpty()){

@@ -32,7 +32,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //initialise fields
     private EditText editTextEmail, editTextPassword;
-    private Button login, signup;
+    private Button login;
+    private TextView signup;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
 
@@ -45,11 +46,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private DatabaseReference mReferenceUsers;
     private List<User> users = new ArrayList<>();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         sharedPreferences = getSharedPreferences(SP_EMAIL, MODE_PRIVATE);
 
@@ -63,9 +64,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         login = findViewById(R.id.bt_login);
         login.setOnClickListener(this);
-        signup = (Button) findViewById(R.id.bt_login_signup);
-        signup.setOnClickListener(this);
 
+        signup = findViewById(R.id.tv_login_signup);
+        signup.setOnClickListener(this);
 
     }
 
@@ -75,9 +76,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.bt_login:
                 userLogin();
                 break;
-
-            case R.id.bt_login_signup:
-                startActivity(new Intent(this, SignUpActivity.class));
+            case R.id.tv_login_signup:
+                Intent intent = new Intent(this, SignUpActivity.class);
+                startActivity(intent);
                 break;
 
         }
