@@ -7,10 +7,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -27,6 +30,8 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+
 
 public class NewPostActivity extends AppCompatActivity {
 
@@ -36,8 +41,8 @@ public class NewPostActivity extends AppCompatActivity {
     private static final String SP_EMAIL = "mypref";
 
     //initialise variables
-    private ImageView ivAudio, ivCamera, ivPhoto, ivVideo;
-    public Uri imageUri, videoUri;
+    private ImageView ivCamera, ivPhoto, ivVideo;
+    public Uri imageUri, videoUri, cameraUri;
 
     // Create a Cloud Storage reference from the app
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
@@ -54,7 +59,6 @@ public class NewPostActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(SP_EMAIL, MODE_PRIVATE);
         String sp_email = sharedPreferences.getString(SP_EMAIL, null);
 
-        ivAudio = findViewById(R.id.iv_new_post_audio);
         ivCamera = findViewById(R.id.iv_new_post_camera);
         ivPhoto = findViewById(R.id.iv_new_post_photo);
         ivVideo = findViewById(R.id.iv_new_post_video);
@@ -86,6 +90,17 @@ public class NewPostActivity extends AppCompatActivity {
             }
         });
 
+        //use camera
+        ivCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent cameraIntent = new Intent (MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, 3);
+            }
+        });
+
+
     }
 
     @Override
@@ -108,5 +123,21 @@ public class NewPostActivity extends AppCompatActivity {
             startActivity(intent);
 
         }
+
+        if (requestCode == 3 && resultCode == RESULT_OK) {
+            Bitmap b = (Bitmap)data.getExtras().get("data");
+            cameraUri = getImageUri(this, b);
+            Intent intent = new Intent(this, UploadActivity.class);
+            intent.putExtra("imageUri", cameraUri);
+            startActivity(intent);
+
+        }
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
     }
 }

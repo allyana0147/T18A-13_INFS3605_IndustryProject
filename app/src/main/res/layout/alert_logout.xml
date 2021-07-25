@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="visible">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_password_game_trophy"
+        android:layout_width="360dp"
+        android:layout_height="300dp"
+        app:cardElevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/offwhite">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/bt_logout_yes"
+                android:layout_width="112dp"
+                android:layout_height="42dp"
+                android:width="250dp"
+                android:height="50dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:background="@color/olive"
+                android:text="YES"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.864"
+                android:layout_marginRight="40dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/bt_logout_no"
+                android:layout_width="112dp"
+                android:layout_height="42dp"
+                android:width="250dp"
+                android:height="50dp"
+                android:background="@color/olive"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="NO"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.864"
+                android:layout_marginLeft="40dp" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="245dp"
+                android:layout_height="95dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/poppins_bold"
+                android:gravity="center"
+                android:text="Are you sure you want to log out?"
+                android:textColor="@color/olive"
+                android:textSize="25dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.504"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.365" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

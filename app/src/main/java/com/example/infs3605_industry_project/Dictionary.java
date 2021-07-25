@@ -1,5 +1,8 @@
 package com.example.infs3605_industry_project;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Dictionary {
 
     public String dictionary_id, language, translation, word;
@@ -45,5 +48,15 @@ public class Dictionary {
 
     public void setWord(String word) {
         this.word = word;
+    }
+
+    public static List<Dictionary> getDictionaryBasedOnLanguage(String language, List<Dictionary> dictionaryList) {
+        List<Dictionary> dictionaryListBasedOnLanguage = new ArrayList<>();
+        for(final Dictionary dictionary : dictionaryList) {
+            if (dictionary.getLanguage().equals(language)) {
+                dictionaryListBasedOnLanguage.add(dictionary);
+            }
+        }
+        return dictionaryListBasedOnLanguage;
     }
 }

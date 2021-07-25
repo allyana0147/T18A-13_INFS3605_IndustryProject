@@ -32,18 +32,6 @@
         app:layout_constraintStart_toStartOf="@+id/et_login_email"
         app:layout_constraintTop_toBottomOf="@+id/et_login_email" />
 
-    <ImageView
-        android:id="@+id/iv_upload_video_back"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="?attr/homeAsUpIndicator"
-        app:tint="#305049" />
-
     <Button
         android:id="@+id/bt_login"
         android:layout_width="300dp"

@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -21,6 +22,7 @@ import android.widget.VideoView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -40,7 +42,7 @@ public class UploadActivity extends AppCompatActivity {
     //initialise variables
     private Button btPost;
     private ImageView ivImage;
-    private EditText tvCaption;
+    private EditText tvCaption, tvHashtag;
     public Uri imageUri;
 
 
@@ -59,6 +61,40 @@ public class UploadActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(SP_EMAIL, MODE_PRIVATE);
         String sp_email = sharedPreferences.getString(SP_EMAIL, null);
 
+        //refer to https://www.youtube.com/watch?v=JjfSjMs0ImQ
+        //initialise and assign variable to bottom navigation bar
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationBar);
+
+        //set home selected
+        bottomNavigationView.setSelectedItemId(R.id.home);
+
+        //perform item selectedlistener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext(),
+                                HomeActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.profile:
+                        return true;
+                    case R.id.upload:
+                        startActivity(new Intent(getApplicationContext(),
+                                NewPostActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.dictionary:
+                        startActivity(new Intent(getApplicationContext(),
+                                DictionaryActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
+
         //get Image URI Intent
         Intent intent = getIntent();
         imageUri = intent.getParcelableExtra("imageUri");
@@ -66,6 +102,7 @@ public class UploadActivity extends AppCompatActivity {
         //initialise variables
         btPost = findViewById(R.id.bt_upload_post);
         tvCaption = findViewById(R.id.tv_upload_caption);
+        tvHashtag = findViewById(R.id.tv_upload_hashtag);
 
         ivImage = findViewById(R.id.iv_upload_image);
         ivImage.setImageURI(imageUri);
@@ -74,7 +111,14 @@ public class UploadActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (imageUri != null){
-                    uploadToFirebase(imageUri, sp_email, tvCaption.getText().toString());
+                    String hashtag = "";
+                    if(tvHashtag.getText().toString().isEmpty()){
+                        hashtag = " ";
+                    }else{
+                        hashtag = tvHashtag.getText().toString();
+                    }
+
+                    uploadToFirebase(imageUri, sp_email, tvCaption.getText().toString(), hashtag);
 
                     //update number of posts in profile
                     new FirebaseDatabaseHelper().readProfile(new FirebaseDatabaseHelper.MyCallbackProfile() {
@@ -114,7 +158,7 @@ public class UploadActivity extends AppCompatActivity {
         });
     }
 
-    public void uploadToFirebase(Uri uri, String user_name, String caption){
+    public void uploadToFirebase(Uri uri, String user_name, String caption, String hashtag){
 
         final ProgressDialog pd = new ProgressDialog(this);
         pd.setTitle("Uploading post...");
@@ -136,7 +180,7 @@ public class UploadActivity extends AppCompatActivity {
                               public void onCallback(List<User> userList) {
                                   User user = User.getUser(user_name, userList);
 
-                                  Post post = new Post(modelId,uri.toString(), user_name, user.getName(), user.getLocation(), caption, "image");
+                                  Post post = new Post(modelId,uri.toString(), user_name, user.getName(), user.getLocation(), caption, hashtag, "image");
                                   root.child(modelId).setValue(post);
 
                               }

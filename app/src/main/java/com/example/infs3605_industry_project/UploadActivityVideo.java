@@ -39,7 +39,7 @@ public class UploadActivityVideo extends AppCompatActivity {
 
     //initialise variables
     private Button btPost;
-    private EditText tvCaption;
+    private EditText tvCaption, tvHashtag;
     private VideoView vvVideo;
     public Uri videoUri;
     MediaController mediaController;
@@ -66,6 +66,7 @@ public class UploadActivityVideo extends AppCompatActivity {
         //initialise variables
         btPost = findViewById(R.id.bt_upload_video_post);
         tvCaption = findViewById(R.id.tv_upload_video_caption);
+        tvHashtag  = findViewById(R.id.tv_upload_video_hashtag);
 
         vvVideo = findViewById(R.id.vv_upload_video);
         vvVideo.setVideoURI(videoUri);
@@ -78,7 +79,14 @@ public class UploadActivityVideo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (videoUri != null){
-                    uploadToFirebase(videoUri, sp_email, tvCaption.getText().toString());
+                    String hashtag = "";
+                    if(tvHashtag.getText().toString().isEmpty()){
+                        hashtag = " ";
+                    }else{
+                        hashtag = tvHashtag.getText().toString();
+                    }
+
+                    uploadToFirebase(videoUri, sp_email, tvCaption.getText().toString(), hashtag);
 
                     //update number of posts in profile
                     new FirebaseDatabaseHelper().readProfile(new FirebaseDatabaseHelper.MyCallbackProfile() {
@@ -109,7 +117,7 @@ public class UploadActivityVideo extends AppCompatActivity {
         });
     }
 
-    public void uploadToFirebase(Uri uri, String user_name, String caption){
+    public void uploadToFirebase(Uri uri, String user_name, String caption, String hashtag){
 
         final ProgressDialog pd = new ProgressDialog(this);
         pd.setTitle("Uploading post...");
@@ -131,7 +139,7 @@ public class UploadActivityVideo extends AppCompatActivity {
                             public void onCallback(List<User> userList) {
                                 User user = User.getUser(user_name, userList);
 
-                                Post post = new Post(modelId,uri.toString(), user_name, user.getName(), user.getLocation(), caption, "video");
+                                Post post = new Post(modelId,uri.toString(), user_name, user.getName(), user.getLocation(), caption, hashtag, "video");
                                 root.child(modelId).setValue(post);
 
                             }

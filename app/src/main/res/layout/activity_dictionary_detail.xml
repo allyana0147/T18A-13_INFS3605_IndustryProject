@@ -15,8 +15,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_dictionary_detail"
-        android:layout_width="406dp"
-        android:layout_height="454dp"
+        android:layout_width="401dp"
+        android:layout_height="422dp"
         android:layout_marginTop="32dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,5 +59,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include17"
         app:layout_constraintVertical_bias="0.714" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+
+        android:id="@+id/bottomNavigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+
+        app:itemIconSize="30dp"
+        app:itemIconTint="@color/black"
+        app:labelVisibilityMode="unlabeled"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:menu="@menu/navigation_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

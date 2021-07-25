@@ -55,6 +55,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
         Post post = mPosts.get(position);
         holder.tvUserName.setText(post.getName());
         holder.tvLocation.setText(post.getLocation());
+        holder.tvHashtag.setText(post.getHashtag());
 
         holder.tvCaption.setText(post.getCaption());
         //retrieve image URL from firebase and add to imageviewer
@@ -70,8 +71,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
     }
 
     public class HomeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView tvUserName, tvLocation, tvCaption;
-        private ImageView ivProfile, ivPost, ivFollowing, ivLike, ivComment, ivFlag, ivUnLike, ivFollow;
+        private TextView tvUserName, tvLocation, tvCaption, tvHashtag;
+        private ImageView ivPost, ivFollowing, ivLike, ivComment, ivFlag, ivUnLike, ivFollow;
         private HomeAdapter.RecyclerViewClickListener listener;
 
 
@@ -83,6 +84,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
             tvLocation = itemView.findViewById(R.id.tv_post_location);
             tvCaption = itemView.findViewById(R.id.tv_post_caption);
             ivPost = itemView.findViewById(R.id.iv_post_image);
+            tvHashtag = itemView.findViewById(R.id.tv_post_hashtag);
 
             ivComment = itemView.findViewById(R.id.iv_post_comment);
             ivFollowing  = itemView.findViewById(R.id.iv_post_follow);

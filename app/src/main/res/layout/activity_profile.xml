@@ -5,6 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include
+        layout="@layout/top_toolbar"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="0dp" />
+
     <TextView
         android:id="@+id/tv_profile_location"
         android:layout_width="wrap_content"
@@ -45,7 +50,7 @@
         android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/ic_baseline_person_24" />
 
     <View
         android:id="@+id/divider4"
@@ -135,17 +140,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView20"
         app:layout_constraintTop_toBottomOf="@+id/tv_profile_total_points" />
-
-    <ImageView
-        android:id="@+id/bt_profile_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
 
     <ImageView
         android:id="@+id/bt_profile_help"
@@ -329,7 +323,25 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/pb_profile_defense_level"
+        app:layout_constraintStart_toEndOf="@+id/pb_profile_rewards"
         app:layout_constraintTop_toTopOf="@+id/pb_profile_rewards" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+
+        android:id="@+id/bottomNavigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+
+        app:itemIconSize="30dp"
+        app:itemIconTint="@color/black"
+        app:labelVisibilityMode="unlabeled"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:menu="@menu/navigation_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

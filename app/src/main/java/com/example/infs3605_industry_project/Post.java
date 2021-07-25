@@ -4,21 +4,30 @@ import java.util.ArrayList;
 
 public class Post {
 
-    public String post_id, imageUrl, user_name, name, location, caption, type;
+    public String post_id, imageUrl, user_name, name, location, caption, hashtag, type;
 
     public Post(){
 
     }
 
-    public Post(String post_id, String imageUrl, String user_name, String name, String location, String caption, String type){
+    public Post(String post_id, String imageUrl, String user_name, String name, String location, String caption, String hashtag, String type){
         this.post_id = post_id;
         this.imageUrl = imageUrl;
         this.user_name = user_name;
         this.name = name;
         this.location = location;
         this.caption = caption;
+        this.hashtag = hashtag;
         this.type = type;
 
+    }
+
+    public String getHashtag() {
+        return hashtag;
+    }
+
+    public void setHashtag(String hashtag) {
+        this.hashtag = hashtag;
     }
 
     public String getType() {

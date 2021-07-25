@@ -43,34 +43,19 @@
 
             <ImageButton
                 android:id="@+id/bt_top_menu_bar_log_out"
+                android:scaleX="1.1"
+                android:scaleY="1.1"
                 android:layout_width="52dp"
                 android:layout_height="52dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
                 android:backgroundTint="#00000000"
-                android:scaleX="1.1"
-                android:scaleY="1.1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/logout_button"
-                tools:ignore="VectorDrawableCompat" />
-
-            <ImageButton
-                android:id="@+id/bt_top_menu_bar_back"
-                android:layout_width="55dp"
-                android:layout_height="57dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:backgroundTint="#00000000"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_baseline_arrow_back_24"
+                android:layout_marginRight="10dp"
                 tools:ignore="VectorDrawableCompat" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

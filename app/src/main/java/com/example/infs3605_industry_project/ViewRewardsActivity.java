@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,6 +28,10 @@ public class ViewRewardsActivity extends AppCompatActivity {
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
 
+    private ImageButton logoutButton,backButton;
+    private Button bt_logout_yes, bt_logout_no;
+
+
     //shared preference to save and share user email to each pages
     SharedPreferences sharedPreferences;
     private static final String SP_EMAIL = "mypref";
@@ -34,6 +40,25 @@ public class ViewRewardsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_rewards);
+
+        //top tool bar
+        logoutButton = findViewById(R.id.bt_top_menu_bar_log_out);
+        backButton = findViewById(R.id.bt_top_menu_bar_back);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                logOutDialog();
+            }
+        });
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                return;
+            }
+        });
+
 
         //shared preference to save and share user email to each pages
         sharedPreferences = getSharedPreferences(SP_EMAIL, MODE_PRIVATE);
@@ -92,4 +117,40 @@ public class ViewRewardsActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void logOutDialog(){
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View logOutView = getLayoutInflater().inflate(R.layout.alert_logout, null);
+        bt_logout_yes = (Button)logOutView.findViewById(R.id.bt_logout_yes);
+        bt_logout_no = (Button)logOutView.findViewById(R.id.bt_logout_no);
+
+        dialogBuilder.setView(logOutView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        bt_logout_yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                user_logout();
+            }
+        });
+
+        bt_logout_no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
+
+
+    public void user_logout(){
+        SharedPreferences myPrefs = getSharedPreferences("mypref",
+                MODE_PRIVATE);
+        SharedPreferences.Editor editor = myPrefs.edit();
+        editor.clear();
+        editor.commit();
+        startActivity(new Intent(this, MainActivity.class));
+    }
+
 }
