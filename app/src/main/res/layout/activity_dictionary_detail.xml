@@ -7,7 +7,6 @@
     tools:context=".DictionaryDetailActivity">
 
 
-
     <include
         android:id="@+id/include17"
         layout="@layout/top_toolbar"
@@ -16,8 +15,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_dictionary_languages"
-        android:layout_width="411dp"
-        android:layout_height="494dp"
+        android:layout_width="406dp"
+        android:layout_height="454dp"
         android:layout_marginTop="32dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +31,7 @@
         android:layout_height="55dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="108dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:drawableLeft="@drawable/ic_baseline_search_24"
@@ -44,8 +43,21 @@
         android:paddingLeft="10dp"
         android:textColor="#afb7c2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include17" />
+
+    <TextView
+        android:id="@+id/tv_dictionary_detail_language"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/olive"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/search_view_dictionary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include17"
+        app:layout_constraintVertical_bias="0.714" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

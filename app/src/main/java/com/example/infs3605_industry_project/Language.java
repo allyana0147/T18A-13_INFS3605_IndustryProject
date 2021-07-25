@@ -1,5 +1,7 @@
 package com.example.infs3605_industry_project;
 
+import java.util.List;
+
 public class Language {
 
     public String language_id, language;
@@ -27,5 +29,14 @@ public class Language {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public static String getLanguage(String language_id, List<Language> languageList) {
+        for(final Language language : languageList) {
+            if (language.getLanguage_id().equals(language_id)) {
+                return language.getLanguage();
+            }
+        }
+        return null;
     }
 }
