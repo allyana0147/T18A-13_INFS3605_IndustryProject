@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -25,20 +26,29 @@ public class CommentsActivity extends AppCompatActivity {
     private TextView tvCaption, tvUserName, tvLocation;
     private EditText etComment;
     private RecyclerView rvComments;
-    private ImageView ivAddComment;
+    private ImageView ivAddComment, ivBack;
     private RecyclerView mRecyclerView;
     private CommentAdapter mAdapter;
+
+    //shared preference to save and share user email to each pages
+    SharedPreferences sharedPreferences;
+    private static final String SP_EMAIL = "mypref";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comments);
 
+        //shared preference to save and share user email to each pages
+        sharedPreferences = getSharedPreferences(SP_EMAIL, MODE_PRIVATE);
+        String sp_email = sharedPreferences.getString(SP_EMAIL, null);
+
         Intent intent = getIntent();
         String caption = intent.getStringExtra(POST_CAPTION);
         String username = intent.getStringExtra(POST_USER_NAME);
         String location = intent.getStringExtra(POST_LOCATION);
         String post_id = intent.getStringExtra(POST_ID);
+
 
         tvCaption = findViewById(R.id.tv_comments_caption);
         tvCaption.setText(caption);
@@ -49,7 +59,15 @@ public class CommentsActivity extends AppCompatActivity {
         etComment = findViewById(R.id.et_comments_add);
         rvComments = findViewById(R.id.rv_comments);
         ivAddComment = findViewById(R.id.iv_comments_add);
+        ivBack = findViewById(R.id.iv_comments_back);
 
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                return;
+            }
+        });
 
         ivAddComment.setOnClickListener(new View.OnClickListener() {
 
@@ -63,17 +81,33 @@ public class CommentsActivity extends AppCompatActivity {
                     return;
                 }
 
-                String commentID = UUID.randomUUID().toString().replace("-", "");
+                //get current user based on email
+                new FirebaseDatabaseHelper().readUser(new FirebaseDatabaseHelper.MyCallbackUser() {
+                    @Override
+                    public void onCallback(List<User> userList) {
+                        User user = User.getUser(sp_email,userList);
+                        String user_location = user.getLocation();
+                        String user_name = user.getName();
 
-                Comment comment = new Comment();
-                comment.setComment_id(commentID);
-                comment.setComment(etComment.getText().toString());
-                comment.setLocation(location);
-                comment.setPost_id(post_id);
-                comment.setUser_name(username);
+                        String commentID = UUID.randomUUID().toString().replace("-", "");
 
-                new FirebaseDatabaseHelper().addComment(commentID, comment);
-                etComment.setText(" ");
+                        Comment comment = new Comment();
+                        comment.setComment_id(commentID);
+                        comment.setComment(etComment.getText().toString());
+                        comment.setLocation(user_location);
+                        comment.setPost_id(post_id);
+                        comment.setUser_name(user_name);
+
+                        new FirebaseDatabaseHelper().addComment(commentID, comment);
+                        etComment.setText(" ");
+                        finish();
+                        startActivity(getIntent());
+
+                    }
+
+
+                });
+
 
         }
 

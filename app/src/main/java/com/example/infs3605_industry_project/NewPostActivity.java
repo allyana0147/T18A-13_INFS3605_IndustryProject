@@ -3,6 +3,7 @@ package com.example.infs3605_industry_project;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -14,14 +15,17 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -44,6 +48,12 @@ public class NewPostActivity extends AppCompatActivity {
     private ImageView ivCamera, ivPhoto, ivVideo;
     public Uri imageUri, videoUri, cameraUri;
 
+    private ImageButton logoutButton,backButton;
+    private Button bt_logout_yes, bt_logout_no;
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
+
+
     // Create a Cloud Storage reference from the app
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     // Create link to real time database
@@ -62,6 +72,58 @@ public class NewPostActivity extends AppCompatActivity {
         ivCamera = findViewById(R.id.iv_new_post_camera);
         ivPhoto = findViewById(R.id.iv_new_post_photo);
         ivVideo = findViewById(R.id.iv_new_post_video);
+
+        //refer to https://www.youtube.com/watch?v=JjfSjMs0ImQ
+        //initialise and assign variable to bottom navigation bar
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationBar);
+
+        //set home selected
+        bottomNavigationView.setSelectedItemId(R.id.upload);
+
+        //perform item selectedlistener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext(),
+                                HomeActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.profile:
+                        return true;
+                    case R.id.upload:
+                        startActivity(new Intent(getApplicationContext(),
+                                NewPostActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.dictionary:
+                        startActivity(new Intent(getApplicationContext(),
+                                DictionaryActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
+
+        //top tool bar
+        logoutButton = findViewById(R.id.bt_top_menu_bar_log_out);
+        backButton = findViewById(R.id.bt_top_menu_bar_back);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                logOutDialog();
+            }
+        });
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                return;
+            }
+        });
 
 
         //choose photo
@@ -140,4 +202,40 @@ public class NewPostActivity extends AppCompatActivity {
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }
+
+    public void logOutDialog(){
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View logOutView = getLayoutInflater().inflate(R.layout.alert_logout, null);
+        bt_logout_yes = (Button)logOutView.findViewById(R.id.bt_logout_yes);
+        bt_logout_no = (Button)logOutView.findViewById(R.id.bt_logout_no);
+
+        dialogBuilder.setView(logOutView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        bt_logout_yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                user_logout();
+            }
+        });
+
+        bt_logout_no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
+
+
+    public void user_logout(){
+        SharedPreferences myPrefs = getSharedPreferences("mypref",
+                MODE_PRIVATE);
+        SharedPreferences.Editor editor = myPrefs.edit();
+        editor.clear();
+        editor.commit();
+        startActivity(new Intent(this, MainActivity.class));
+    }
+
 }

@@ -10,7 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="400dp">
 
         <ImageView
             android:id="@+id/iv_post_profile"
@@ -48,14 +48,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/following" />
-
-        <ImageView
-            android:id="@+id/iv_post_flag"
-            android:layout_width="31dp"
-            android:layout_height="36dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/report" />
 
         <TextView
             android:id="@+id/tv_post_username"
@@ -111,33 +103,53 @@
 
         <ImageView
             android:id="@+id/iv_post_image"
-            android:layout_width="321dp"
-            android:layout_height="208dp"
+            android:layout_width="345dp"
+            android:layout_height="196dp"
             android:layout_marginTop="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/tv_post_caption"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.533"
             app:layout_constraintStart_toStartOf="@+id/tv_post_caption"
             app:layout_constraintTop_toBottomOf="@+id/tv_post_caption"
+            app:layout_constraintVertical_bias="0.0"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
         <ImageView
             android:id="@+id/iv_post_empty_like"
-            app:srcCompat="@drawable/empty_like"
             android:layout_width="30dp"
             android:layout_height="30dp"
             app:layout_constraintEnd_toEndOf="@+id/iv_post_follow"
             app:layout_constraintStart_toStartOf="@+id/iv_post_follow"
-            app:layout_constraintTop_toBottomOf="@+id/iv_post_follow"/>
+            app:layout_constraintTop_toBottomOf="@+id/iv_post_follow"
+            app:srcCompat="@drawable/empty_like" />
 
         <ImageView
             android:id="@+id/iv_post_add_follow"
-            app:srcCompat="@drawable/follow"
-            tools:layout_editor_absoluteX="199dp"
             android:layout_width="30dp"
             android:layout_height="30dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/follow"
+            tools:layout_editor_absoluteX="199dp" />
+
+        <ImageView
+            android:id="@+id/iv_post_red_flag"
+            android:layout_width="31dp"
+            android:layout_height="36dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/red_flag"
+            tools:layout_editor_absoluteX="302dp"
+            tools:layout_editor_absoluteY="292dp" />
+
+
+        <ImageView
+            android:id="@+id/iv_post_flag"
+            android:layout_width="31dp"
+            android:layout_height="36dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/report" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

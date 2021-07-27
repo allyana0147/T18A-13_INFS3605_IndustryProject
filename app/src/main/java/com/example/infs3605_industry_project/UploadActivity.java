@@ -41,7 +41,7 @@ public class UploadActivity extends AppCompatActivity {
 
     //initialise variables
     private Button btPost;
-    private ImageView ivImage;
+    private ImageView ivImage, ivBack;
     private EditText tvCaption, tvHashtag;
     public Uri imageUri;
 
@@ -61,40 +61,6 @@ public class UploadActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(SP_EMAIL, MODE_PRIVATE);
         String sp_email = sharedPreferences.getString(SP_EMAIL, null);
 
-        //refer to https://www.youtube.com/watch?v=JjfSjMs0ImQ
-        //initialise and assign variable to bottom navigation bar
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationBar);
-
-        //set home selected
-        bottomNavigationView.setSelectedItemId(R.id.home);
-
-        //perform item selectedlistener
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch(item.getItemId()){
-                    case R.id.home:
-                        startActivity(new Intent(getApplicationContext(),
-                                HomeActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.profile:
-                        return true;
-                    case R.id.upload:
-                        startActivity(new Intent(getApplicationContext(),
-                                NewPostActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.dictionary:
-                        startActivity(new Intent(getApplicationContext(),
-                                DictionaryActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                }
-                return false;
-            }
-        });
-
         //get Image URI Intent
         Intent intent = getIntent();
         imageUri = intent.getParcelableExtra("imageUri");
@@ -104,8 +70,17 @@ public class UploadActivity extends AppCompatActivity {
         tvCaption = findViewById(R.id.tv_upload_caption);
         tvHashtag = findViewById(R.id.tv_upload_hashtag);
 
+        ivBack = findViewById(R.id.iv_upload_back);
         ivImage = findViewById(R.id.iv_upload_image);
         ivImage.setImageURI(imageUri);
+
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                return;
+            }
+        });
 
         btPost.setOnClickListener (new View.OnClickListener(){
             @Override

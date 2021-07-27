@@ -86,13 +86,22 @@ public class ProfileActivity extends AppCompatActivity {
         btViewRewards = findViewById(R.id.bt_profile_view_rewards);
         pbRewards = findViewById(R.id.pb_profile_rewards);
 
+        //logout
+
+        btLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                logOutDialog();
+            }
+        });
 
         //refer to https://www.youtube.com/watch?v=JjfSjMs0ImQ
         //initialise and assign variable to bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationBar);
 
         //set home selected
-        bottomNavigationView.setSelectedItemId(R.id.home);
+        bottomNavigationView.setSelectedItemId(R.id.profile);
 
         //perform item selectedlistener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

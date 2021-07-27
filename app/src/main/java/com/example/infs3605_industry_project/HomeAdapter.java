@@ -39,6 +39,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
         void onAddCommentClick(View view, int position);
         void onAddFollowClick(View view, int position);
         void onAddUnFollowClick (View view, int position);
+        void onFlag (View view, int position);
     }
 
     //displays movies in rows in a recycler view
@@ -72,7 +73,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
 
     public class HomeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView tvUserName, tvLocation, tvCaption, tvHashtag;
-        private ImageView ivPost, ivFollowing, ivLike, ivComment, ivFlag, ivUnLike, ivFollow;
+        private ImageView ivPost, ivFollowing, ivLike, ivComment, ivFlag, ivRedFlag, ivUnLike, ivFollow;
         private HomeAdapter.RecyclerViewClickListener listener;
 
 
@@ -91,6 +92,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
             ivLike  = itemView.findViewById(R.id.iv_post_empty_like);
             ivUnLike  = itemView.findViewById(R.id.iv_post_like);
             ivFlag  = itemView.findViewById(R.id.iv_post_flag);
+            ivRedFlag = itemView.findViewById(R.id.iv_post_red_flag);
             ivFollow  = itemView.findViewById(R.id.iv_post_add_follow);
 
 
@@ -150,6 +152,28 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
                 public void onClick(View v) {
                     ivUnLike.setVisibility(View.INVISIBLE);
                     ivLike.setVisibility(View.VISIBLE);
+                }
+            });
+
+            ivFlag.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ivFlag.setVisibility(View.INVISIBLE);
+                    ivRedFlag.setVisibility(View.VISIBLE);
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onFlag(v, position);
+                        }
+                    }
+                }
+            });
+
+            ivRedFlag.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ivRedFlag.setVisibility(View.INVISIBLE);
+                    ivFlag.setVisibility(View.VISIBLE);
                 }
             });
 

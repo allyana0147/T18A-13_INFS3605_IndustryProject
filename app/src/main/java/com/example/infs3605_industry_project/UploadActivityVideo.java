@@ -14,6 +14,7 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,7 @@ public class UploadActivityVideo extends AppCompatActivity {
     private Button btPost;
     private EditText tvCaption, tvHashtag;
     private VideoView vvVideo;
+    private ImageView ivBack;
     public Uri videoUri;
     MediaController mediaController;
 
@@ -67,6 +69,15 @@ public class UploadActivityVideo extends AppCompatActivity {
         btPost = findViewById(R.id.bt_upload_video_post);
         tvCaption = findViewById(R.id.tv_upload_video_caption);
         tvHashtag  = findViewById(R.id.tv_upload_video_hashtag);
+        ivBack = findViewById(R.id.iv_upload_video_back);
+
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                return;
+            }
+        });
 
         vvVideo = findViewById(R.id.vv_upload_video);
         vvVideo.setVideoURI(videoUri);

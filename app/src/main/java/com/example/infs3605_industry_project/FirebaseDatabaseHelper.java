@@ -98,6 +98,18 @@ public class FirebaseDatabaseHelper {
         });
     }
 
+    //delete post for flag
+    public void flagPost(String post_id) {
+        mReferencePosts.child(post_id).setValue(null)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                });
+    }
+
+
+
 
     //COMMENTS
     //handling asynchronous data
@@ -350,5 +362,6 @@ public class FirebaseDatabaseHelper {
             }
         });
     }
+
 
 }

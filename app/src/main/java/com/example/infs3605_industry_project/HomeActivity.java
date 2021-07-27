@@ -38,7 +38,7 @@ public class HomeActivity extends AppCompatActivity {
     private HomeAdapter mAdapter;
     private List<User> fullUserList;
     private ImageButton logoutButton,backButton;
-    private Button bt_logout_yes, bt_logout_no;
+    private Button bt_logout_yes, bt_logout_no, bt_flag_done;
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
 
@@ -164,6 +164,16 @@ public class HomeActivity extends AppCompatActivity {
                         });
                     }
 
+                    @Override
+                    public void onFlag(View view, int position) {
+                        Post post = postList.get(position);
+                        String post_id = post.getPost_id();
+                        //remove post from home after flagging
+                        new FirebaseDatabaseHelper().flagPost(post_id);
+                        flagDialog();
+
+                    }
+
                 };
 
                 mAdapter = new HomeAdapter(HomeActivity.this, postList, listener);
@@ -208,6 +218,24 @@ public class HomeActivity extends AppCompatActivity {
         editor.clear();
         editor.commit();
         startActivity(new Intent(this, MainActivity.class));
+    }
+
+    public void flagDialog(){
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View flag_view = getLayoutInflater().inflate(R.layout.alert_flag, null);
+        bt_flag_done = (Button)flag_view.findViewById(R.id.bt_flag_done);
+
+        dialogBuilder.setView(flag_view);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        bt_flag_done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
     }
 
 
