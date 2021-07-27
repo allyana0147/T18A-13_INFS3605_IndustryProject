@@ -15,41 +15,31 @@
         android:id="@+id/textView41"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
         android:fontFamily="@font/poppins_medium"
         android:text="Text"
-        android:textSize="16sp"
+        android:textColor="#305049"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView36"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.206"
         app:layout_constraintStart_toEndOf="@+id/imageView36"
-        app:layout_constraintTop_toBottomOf="@+id/textView35"
-        app:layout_constraintVertical_bias="0.8" />
-
-    <View
-        android:id="@+id/divider12"
-        android:layout_width="391dp"
-        android:layout_height="2dp"
-        android:layout_marginTop="28dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_new_post_video" />
+        app:layout_constraintTop_toTopOf="@+id/imageView36" />
 
     <ImageView
         android:id="@+id/imageView36"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="120dp"
-        android:layout_marginLeft="120dp"
-        android:layout_marginTop="60dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="80dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView35"
         app:srcCompat="@android:drawable/ic_menu_sort_by_size" />
 
     <ImageView
         android:id="@+id/iv_new_post_photo"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginTop="28dp"
         app:layout_constraintStart_toStartOf="@+id/iv_new_post_camera"
         app:layout_constraintTop_toBottomOf="@+id/iv_new_post_camera"
@@ -61,11 +51,11 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_medium"
         android:text="Photo"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_new_post_photo"
+        android:textColor="#305049"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/divider11"
         app:layout_constraintStart_toStartOf="@+id/textView39"
-        app:layout_constraintTop_toTopOf="@+id/iv_new_post_photo"
-        app:layout_constraintVertical_bias="0.466" />
+        app:layout_constraintTop_toBottomOf="@+id/divider13" />
 
     <TextView
         android:id="@+id/textView38"
@@ -73,7 +63,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_medium"
         android:text="Video"
-        android:textSize="16sp"
+        android:textColor="#305049"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_new_post_video"
         app:layout_constraintStart_toStartOf="@+id/textView37"
         app:layout_constraintTop_toTopOf="@+id/iv_new_post_video"
@@ -87,8 +78,7 @@
         app:layout_constraintBottom_toTopOf="@+id/iv_new_post_photo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_new_post_camera"
-        app:layout_constraintVertical_bias="0.407" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_new_post_camera" />
 
     <View
         android:id="@+id/divider11"
@@ -98,8 +88,7 @@
         app:layout_constraintBottom_toTopOf="@+id/iv_new_post_video"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_new_post_photo"
-        app:layout_constraintVertical_bias="0.538" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_new_post_photo" />
 
     <TextView
         android:id="@+id/textView39"
@@ -107,11 +96,11 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_medium"
         android:text="Camera"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_new_post_camera"
+        android:textColor="#305049"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/divider13"
         app:layout_constraintStart_toStartOf="@+id/textView41"
-        app:layout_constraintTop_toTopOf="@+id/iv_new_post_camera"
-        app:layout_constraintVertical_bias="0.266" />
+        app:layout_constraintTop_toBottomOf="@+id/divider9" />
 
     <View
         android:id="@+id/divider9"
@@ -121,13 +110,12 @@
         app:layout_constraintBottom_toTopOf="@+id/iv_new_post_camera"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView36"
-        app:layout_constraintVertical_bias="0.441" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView36" />
 
     <ImageView
         android:id="@+id/iv_new_post_video"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginTop="28dp"
         app:layout_constraintStart_toStartOf="@+id/iv_new_post_photo"
         app:layout_constraintTop_toBottomOf="@+id/iv_new_post_photo"
@@ -135,8 +123,8 @@
 
     <ImageView
         android:id="@+id/iv_new_post_camera"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginTop="36dp"
         app:layout_constraintStart_toStartOf="@+id/imageView36"
         app:layout_constraintTop_toBottomOf="@+id/imageView36"
@@ -145,19 +133,14 @@
     <TextView
         android:id="@+id/textView35"
         android:layout_width="238dp"
-        android:layout_height="96dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:fontFamily="@font/poppins_medium"
+        android:layout_height="0dp"
+        android:layout_marginTop="65dp"
+        android:fontFamily="@font/poppins_semibold"
         android:gravity="center"
         android:text="What would you like to post?"
         android:textColor="#305049"
-        android:textSize="24sp"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include2" />
 

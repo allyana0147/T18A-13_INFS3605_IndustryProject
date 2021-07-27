@@ -19,6 +19,7 @@
             android:fontFamily="@font/poppins_medium"
             android:gravity="center"
             android:text="TEST"
+            android:textColor="#305049"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -9,11 +9,12 @@
     <EditText
         android:id="@+id/et_signup_password"
         android:layout_width="319dp"
-        android:layout_height="44dp"
+        android:layout_height="48dp"
         android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/et_signup_location"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/et_signup_location"
@@ -22,11 +23,12 @@
     <EditText
         android:id="@+id/et_signup_location"
         android:layout_width="319dp"
-        android:layout_height="44dp"
+        android:layout_height="48dp"
         android:layout_marginTop="30dp"
         android:ems="10"
-        android:hint="Location"
+        android:hint="Location (optional)"
         android:inputType="textPersonName"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/et_signup_language"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/et_signup_language"
@@ -35,63 +37,65 @@
     <EditText
         android:id="@+id/et_signup_language"
         android:layout_width="319dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="30dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="Language"
+        android:hint="Your First Nation Language (optional)"
         android:inputType="textPersonName"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/cb_signup_usertype"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/cb_signup_usertype"
-        app:layout_constraintTop_toBottomOf="@+id/et_signup_location" />
+        app:layout_constraintTop_toBottomOf="@+id/cb_signup_usertype" />
 
     <EditText
         android:id="@+id/et_signup_email"
         android:layout_width="319dp"
-        android:layout_height="44dp"
+        android:layout_height="48dp"
         android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="textPersonName"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/et_signup_password"
         app:layout_constraintTop_toBottomOf="@+id/et_signup_name" />
 
     <EditText
         android:id="@+id/et_signup_name"
         android:layout_width="319dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="104dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="32dp"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="@+id/et_signup_email"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/et_signup_email"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        android:textSize="16sp" />
 
     <CheckBox
         android:id="@+id/cb_signup_usertype"
-        android:layout_width="316dp"
+        android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="32dp"
         android:text="Are you from a First Nations background?"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.536"
+        app:layout_constraintHorizontal_bias="0.534"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_signup_language" />
+        app:layout_constraintTop_toBottomOf="@+id/et_signup_location" />
 
     <Button
         android:id="@+id/bt_signup"
-        android:layout_width="319dp"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_marginTop="30dp"
-        android:text="Sign Up"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/cb_signup_usertype"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/cb_signup_usertype"
-        app:layout_constraintTop_toBottomOf="@+id/cb_signup_usertype"
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="SIGN UP"
+        android:textColorHighlight="#305049"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_signup_language" />
 
     <ProgressBar
         android:id="@+id/pb_signup"
@@ -105,4 +109,42 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.453"
         tools:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Sign up"
+        android:textColor="#305049"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Already have an account?"
+        android:textColor="#305049"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bt_signup" />
+
+    <TextView
+        android:id="@+id/tv_login_signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
+        android:text="LOGIN"
+        android:textColor="#305049"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
 </androidx.constraintlayout.widget.ConstraintLayout>
