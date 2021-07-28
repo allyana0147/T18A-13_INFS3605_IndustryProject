@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ public class RedeemRewardsActivity extends AppCompatActivity {
     private RadioGroup radioGroup;
     private RadioButton radioButton;
     private Button buttonRedeem, alertDone;
+    private ImageView backButton;
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private TextView tvReward;
@@ -36,6 +38,16 @@ public class RedeemRewardsActivity extends AppCompatActivity {
         //shared preference to save and share user email to each pages
         sharedPreferences = getSharedPreferences(SP_EMAIL, MODE_PRIVATE);
         String sp_email = sharedPreferences.getString(SP_EMAIL, null);
+
+        backButton = findViewById(R.id.bt_redeem_reward_back);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                return;
+            }
+        });
 
         radioGroup = findViewById(R.id.rg_rewards);
         buttonRedeem = findViewById(R.id.bt_redeem_reward);

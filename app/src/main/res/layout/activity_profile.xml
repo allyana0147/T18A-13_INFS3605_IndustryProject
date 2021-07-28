@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <include
+        android:id="@+id/include3"
         layout="@layout/top_toolbar"
         tools:layout_editor_absoluteX="-16dp"
         tools:layout_editor_absoluteY="0dp" />
@@ -44,16 +45,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/imageView"
-        android:layout_width="80dp"
+        android:layout_width="100dp"
         android:layout_height="80dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="72dp"
+        app:layout_constraintEnd_toStartOf="@+id/include3"
+        app:layout_constraintHorizontal_bias="0.167"
+        app:layout_constraintStart_toEndOf="@+id/include3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/ic_baseline_person_24" />
+        tools:srcCompat="@tools:sample/avatars" />
 
     <View
         android:id="@+id/divider4"

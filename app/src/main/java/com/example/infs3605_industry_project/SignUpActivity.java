@@ -34,6 +34,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private ProgressBar progressBar;
     private CheckBox checkBoxUserType;
     private Button signup;
+    private TextView tv_login_signup;
+    private String language;
 
     private FirebaseAuth mAuth;
     private DatabaseReference reference;
@@ -59,7 +61,17 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         progressBar = (ProgressBar) findViewById(R.id.pb_signup);
         progressBar.setVisibility(View.INVISIBLE);
         checkBoxUserType = (CheckBox) findViewById(R.id.cb_signup_usertype);
+        tv_login_signup = findViewById(R.id.tv_login_signup);
 
+        tv_login_signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //shared preferences
         sharedPreferences = getSharedPreferences(SP_EMAIL, MODE_PRIVATE);
 
         signup = (Button) findViewById(R.id.bt_signup);
@@ -83,7 +95,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         String email = editTextEmail.getText().toString().toLowerCase().trim();
         String password = editTextPassword.getText().toString().trim();
         String location = editTextLocation.getText().toString().trim();
-        String language = editTextLanguage.getText().toString().trim();
 
         if (checkBoxUserType.isChecked()){
             user_type = "aboriginal";
@@ -122,10 +133,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             editTextLocation.requestFocus();
             return;
         }
-        if(language.isEmpty()){
-            editTextLanguage.setError("Language is required!");
-            editTextLanguage.requestFocus();
-            return;
+        if(editTextLanguage.getText().toString().trim().isEmpty()){
+            editTextLanguage.setText(" ");
         }
 
         progressBar.setVisibility(View.VISIBLE);
@@ -136,6 +145,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if(task.isSuccessful()){
+
+                            language = editTextLanguage.getText().toString().trim();
+
                             User user = new User (email, password, name, user_type, location, language);
 
                             //Add empty profile for new users
