@@ -85,7 +85,29 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
                 LikedPost likedPost = new LikedPost(likedPostId, mUserName,post.getPost_id());
                 new FirebaseDatabaseHelper().addLikedPost(likedPostId, likedPost);
 
+                //update number of posts in profile
+                new FirebaseDatabaseHelper().readProfile(new FirebaseDatabaseHelper.MyCallbackProfile() {
+                    @Override
+                    public void onCallback(List<Profile> profileList) {
 
+                        Profile profile = Profile.getProfile(post.getUser_name(), profileList);
+
+                        //update no.of total points
+                        int new_total_points = Integer.parseInt(profile.getTotal_points()) + 10;
+                        new FirebaseDatabaseHelper().updateTotalPoints(profile.getProfile_id(), String.valueOf(new_total_points));
+
+                        //update no.of current points until rewards are redeemed
+                        int current_points = Integer.parseInt(profile.getNo_of_points());
+                        if(current_points==250){
+                            current_points = 0;
+                            new FirebaseDatabaseHelper().updateCurrentPoints(profile.getProfile_id(), "0");
+                        }else {
+                            current_points = current_points + 50;
+                            new FirebaseDatabaseHelper().updateCurrentPoints(profile.getProfile_id(), String.valueOf(current_points));
+                        }
+                    }
+
+                });
             }
         });
 
