@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class Post {
 
-    public String post_id, imageUrl, user_name, name, location, caption, hashtag, type;
+    public String post_id, imageUrl, user_name, name, location, caption, hashtag, type, no_of_likes;
 
     public Post(){
 
     }
 
-    public Post(String post_id, String imageUrl, String user_name, String name, String location, String caption, String hashtag, String type){
+    public Post(String post_id, String imageUrl, String user_name, String name, String location, String caption, String hashtag, String type, String no_of_likes){
         this.post_id = post_id;
         this.imageUrl = imageUrl;
         this.user_name = user_name;
@@ -19,6 +19,7 @@ public class Post {
         this.caption = caption;
         this.hashtag = hashtag;
         this.type = type;
+        this.no_of_likes = no_of_likes;
 
     }
 
@@ -87,4 +88,11 @@ public class Post {
     }
 
 
+    public String getNo_of_likes() {
+        return no_of_likes;
+    }
+
+    public void setNo_of_likes(String no_of_likes) {
+        this.no_of_likes = no_of_likes;
+    }
 }

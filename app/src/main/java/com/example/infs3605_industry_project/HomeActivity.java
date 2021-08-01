@@ -20,9 +20,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -104,7 +107,7 @@ public class HomeActivity extends AppCompatActivity {
         new FirebaseDatabaseHelper().readPost(new FirebaseDatabaseHelper.MyCallbackPost() {
             @Override
             public void onCallback(List<Post> postList) {
-
+                Collections.reverse(postList);
 
                 HomeAdapter.RecyclerViewClickListener listener = new HomeAdapter.RecyclerViewClickListener() {
                     @Override
@@ -164,6 +167,7 @@ public class HomeActivity extends AppCompatActivity {
                         });
                     }
 
+
                     @Override
                     public void onFlag(View view, int position) {
                         Post post = postList.get(position);
@@ -176,8 +180,19 @@ public class HomeActivity extends AppCompatActivity {
 
                 };
 
-                mAdapter = new HomeAdapter(HomeActivity.this, postList, listener);
-                mRecyclerView.setAdapter(mAdapter);
+                new FirebaseDatabaseHelper().readLikedPost(new FirebaseDatabaseHelper.MyCallbackLikedPosts() {
+                    @Override
+                    public void onCallback(List<LikedPost> likedPostList) {
+                        List<LikedPost> likedPostBasedOnUser = LikedPost.getLikedPostBasedOnUser(sp_email, likedPostList);
+                        mAdapter = new HomeAdapter(HomeActivity.this, postList, listener, likedPostBasedOnUser, sp_email);
+                        mRecyclerView.setAdapter(mAdapter);
+
+                    }
+                });
+
+ /*               Collections.reverse(postList);
+                mAdapter = new HomeAdapter(HomeActivity.this, postList, listener, likedPostBasedOnUser);
+                mRecyclerView.setAdapter(mAdapter);*/
 
 
             }

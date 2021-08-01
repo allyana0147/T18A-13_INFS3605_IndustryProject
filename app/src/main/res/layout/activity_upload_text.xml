@@ -26,10 +26,10 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView27" />
+        app:layout_constraintTop_toTopOf="@+id/iv_upload_text_back" />
 
-    <TextView
-        android:id="@+id/post_text4"
+    <EditText
+        android:id="@+id/et_upload_text_hashtag"
         android:layout_width="329dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -38,14 +38,14 @@
         android:layout_marginRight="32dp"
         android:layout_marginBottom="40dp"
         android:fontFamily="@font/poppins_light"
-        android:text="Add hashtags  e.g. #Festival #DreamtimeStories"
+        android:hint="Add hashtags  e.g. #Festival #DreamtimeStories"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/button6"
+        app:layout_constraintBottom_toTopOf="@+id/bt_upload_text_post"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/post_text5"
+    <EditText
+        android:id="@+id/et_upload_text_caption"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -54,14 +54,14 @@
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:fontFamily="@font/poppins_light"
-        android:text="Type something..."
+        android:hint="Type something..."
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView26"
         app:layout_constraintTop_toTopOf="@+id/imageView26" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/bt_upload_text_post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
@@ -74,7 +74,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView27"
+        android:id="@+id/iv_upload_text_back"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginStart="24dp"
@@ -91,7 +91,7 @@
         android:layout_height="1dp"
         android:layout_marginBottom="32dp"
         android:background="@color/cardview_shadow_start_color"
-        app:layout_constraintBottom_toTopOf="@+id/post_text4"
+        app:layout_constraintBottom_toTopOf="@+id/et_upload_text_hashtag"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />

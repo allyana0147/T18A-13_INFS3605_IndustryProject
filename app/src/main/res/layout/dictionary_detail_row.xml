@@ -42,11 +42,11 @@
 
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="61dp"
-            android:layout_height="54dp"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.977"
+            app:layout_constraintHorizontal_bias="0.933"
             app:layout_constraintStart_toEndOf="@+id/tv_dictionary_translation"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_baseline_volume_up_24"

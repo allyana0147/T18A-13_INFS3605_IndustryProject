@@ -23,6 +23,7 @@ public class FirebaseDatabaseHelper {
     private DatabaseReference mReferenceReward;
     private DatabaseReference mReferenceLanguage;
     private DatabaseReference mReferenceDictionary;
+    private DatabaseReference mReferenceLikedPost;
 
     private List<User> users = new ArrayList<>();
     private List<Post> posts = new ArrayList<>();
@@ -31,6 +32,7 @@ public class FirebaseDatabaseHelper {
     private List<Reward> rewards = new ArrayList<>();
     private List<Language> languages = new ArrayList<>();
     private List<Dictionary> dictionaries = new ArrayList<>();
+    private List<LikedPost> likedposts = new ArrayList<>();
 
     public FirebaseDatabaseHelper() {
         mDatabase = FirebaseDatabase.getInstance();
@@ -41,6 +43,7 @@ public class FirebaseDatabaseHelper {
         mReferenceReward = mDatabase.getReference("Reward");
         mReferenceLanguage = mDatabase.getReference("Language");
         mReferenceDictionary = mDatabase.getReference("Dictionary");
+        mReferenceLikedPost = mDatabase.getReference("LikedPosts");
 
     }
 
@@ -108,6 +111,16 @@ public class FirebaseDatabaseHelper {
                 });
     }
 
+    //add new post
+    public void addNewPost(String post_id, Post post) {
+        mReferencePosts.child(post_id).setValue(post)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+
+                });
+    }
 
 
 
@@ -363,5 +376,65 @@ public class FirebaseDatabaseHelper {
         });
     }
 
+    //LIKE
+    //update number of likes for a post
+    public void updateNumberOfLikes(String id, String new_no_likes) {
+        mReferencePosts.child(id).child("no_of_likes").setValue(new_no_likes)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                });
+    }
+
+    //LIKED POSTS
+    //handling asynchronous data
+    public interface MyCallbackLikedPosts {
+        void onCallback(List<LikedPost> likedPostList);
+    }
+
+    public void readLikedPost(MyCallbackLikedPosts myCallback) {
+        mReferenceLikedPost.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                likedposts.clear();
+                List<String> keys = new ArrayList<>();
+                for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
+                    keys.add(keyNode.getKey());
+                    LikedPost likedpost = keyNode.getValue(LikedPost.class);
+                    likedposts.add(likedpost);
+                }
+                myCallback.onCallback(likedposts);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    //add LikedPost
+    public void addLikedPost(String liked_post_id, LikedPost likedPost) {
+        mReferenceLikedPost.child(liked_post_id).setValue(likedPost)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+
+                });
+    }
+
+    //remove LikedPost
+    public void removeLikedPost(String liked_post_id) {
+        mReferenceLikedPost.child(liked_post_id).setValue(null)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+
+                });
+    }
 
 }

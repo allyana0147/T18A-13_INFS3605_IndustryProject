@@ -150,7 +150,7 @@ public class UploadActivityVideo extends AppCompatActivity {
                             public void onCallback(List<User> userList) {
                                 User user = User.getUser(user_name, userList);
 
-                                Post post = new Post(modelId,uri.toString(), user_name, user.getName(), user.getLocation(), caption, hashtag, "video");
+                                Post post = new Post(modelId,uri.toString(), user_name, user.getName(), user.getLocation(), caption, hashtag, "video", "0");
                                 root.child(modelId).setValue(post);
 
                             }

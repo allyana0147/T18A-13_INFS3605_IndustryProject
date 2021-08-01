@@ -45,7 +45,7 @@ public class NewPostActivity extends AppCompatActivity {
     private static final String SP_EMAIL = "mypref";
 
     //initialise variables
-    private ImageView ivCamera, ivPhoto, ivVideo;
+    private ImageView ivCamera, ivPhoto, ivVideo, ivText;
     public Uri imageUri, videoUri, cameraUri;
 
     private ImageButton logoutButton,backButton;
@@ -72,6 +72,7 @@ public class NewPostActivity extends AppCompatActivity {
         ivCamera = findViewById(R.id.iv_new_post_camera);
         ivPhoto = findViewById(R.id.iv_new_post_photo);
         ivVideo = findViewById(R.id.iv_new_post_video);
+        ivText = findViewById(R.id.iv_new_post_text);
 
         //refer to https://www.youtube.com/watch?v=JjfSjMs0ImQ
         //initialise and assign variable to bottom navigation bar
@@ -162,6 +163,15 @@ public class NewPostActivity extends AppCompatActivity {
             }
         });
 
+        //upload text
+        ivText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(NewPostActivity.this, UploadActivityText.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

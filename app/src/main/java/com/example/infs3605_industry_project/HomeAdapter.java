@@ -2,6 +2,7 @@ package com.example.infs3605_industry_project;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,21 +18,26 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.List;
+import java.util.UUID;
 
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
 
-    //array list of all movies
+    //array list of all posts
     private List<Post> mPosts;
+    private List<LikedPost> mLikedPosts;
     private Context mContext;
+    private String mUserName;
     DataSnapshot dataSnapshot;
     View mView;
     private HomeAdapter.RecyclerViewClickListener mListener;
 
-    public HomeAdapter(Context context, List<Post> posts, HomeAdapter.RecyclerViewClickListener listener) {
+    public HomeAdapter(Context context, List<Post> posts, HomeAdapter.RecyclerViewClickListener listener, List<LikedPost> likedPosts, String user_name) {
         mContext= context;
         mPosts = posts;
         mListener = listener;
+        mLikedPosts = likedPosts;
+        mUserName = user_name;
     }
 
     public interface RecyclerViewClickListener {
@@ -48,6 +54,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
     public HomeAdapter.HomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_view_layout, parent, false);
         return new HomeAdapter.HomeViewHolder(v, mListener);
+
     }
 
     //gets movie information from movie object and displays in containers in holders in recycler view
@@ -63,6 +70,49 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
         Glide.with(mContext).load(mPosts.get(position).getImageUrl()).into(holder.ivPost);
 
         holder.itemView.setTag(post.getPost_id());
+
+        //like button
+        holder.ivLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //update no of likes in post
+                int new_no_likes = Integer.parseInt(post.getNo_of_likes()) + 1;
+                new FirebaseDatabaseHelper().updateNumberOfLikes(post.getPost_id(),String.valueOf(new_no_likes));
+
+                //new liked post record
+                String likedPostId = UUID.randomUUID().toString().replace("-", "");
+                LikedPost likedPost = new LikedPost(likedPostId, mUserName,post.getPost_id());
+                new FirebaseDatabaseHelper().addLikedPost(likedPostId, likedPost);
+
+
+            }
+        });
+
+        //save like button
+        for (LikedPost likedPost_1: mLikedPosts){
+            if(likedPost_1.getPost_id().equals(post.getPost_id())){
+                holder.ivLike.setVisibility(View.INVISIBLE);
+                holder.ivUnLike.setVisibility(View.VISIBLE);
+            }
+        }
+
+        //unlike button
+        holder.ivUnLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //update no of likes in post
+                int new_no_likes = Integer.parseInt(post.getNo_of_likes()) - 1;
+                new FirebaseDatabaseHelper().updateNumberOfLikes(post.getPost_id(),String.valueOf(new_no_likes));
+
+                //delete liked post record
+                String likedPostId = LikedPost.getLikedPostId(post.getPost_id(), mUserName, mLikedPosts);
+                new FirebaseDatabaseHelper().removeLikedPost(likedPostId);
+
+            }
+        });
+
 
     }
 
@@ -138,22 +188,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
                 }
             });
 
-            //like button
-            ivLike.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ivLike.setVisibility(View.INVISIBLE);
-                    ivUnLike.setVisibility(View.VISIBLE);
-                }
-            });
 
-            ivUnLike.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ivUnLike.setVisibility(View.INVISIBLE);
-                    ivLike.setVisibility(View.VISIBLE);
-                }
-            });
 
             ivFlag.setOnClickListener(new View.OnClickListener() {
                 @Override
