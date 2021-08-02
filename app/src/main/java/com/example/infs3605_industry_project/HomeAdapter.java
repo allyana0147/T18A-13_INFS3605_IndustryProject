@@ -167,7 +167,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
             ivRedFlag = itemView.findViewById(R.id.iv_post_red_flag);
             ivFollow  = itemView.findViewById(R.id.iv_post_add_follow);
 
-
             //comment button
             ivComment.setOnClickListener(new View.OnClickListener() {
                 @Override
